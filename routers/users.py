@@ -6,7 +6,7 @@ from typing import Optional
 import db
 from firebase import auth as firebase_auth
 from auth.schemas import UserCreate,UserResponse,Token
-from auth.jwt_config import create_access_token,get_current_user
+from auth.jwt_config import create_access_token, get_current_user
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -48,3 +48,27 @@ async def delete_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     db.delete_user(user_id)
     return {"message": "User deleted"}
+
+
+
+
+@router.get("/incoming-requests")
+async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
+    incoming_uids = current_user.get("incoming_requests", [])
+
+    if not incoming_uids:
+        return []
+
+    users_data = []
+    for uid in incoming_uids:
+        user_doc = db.collection("users").document(uid).get()
+        if user_doc.exists:
+            u = user_doc.to_dict()
+            users_data.append({
+                "uid": uid,
+                "name": u.get("name"),  
+                "room_id": u.get("room_id"),
+                "admission_number": u.get("admission_number")
+            })
+
+    return users_data
