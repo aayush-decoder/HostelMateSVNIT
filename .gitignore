@@ -1,0 +1,4 @@
+test.py
+.venv
+firebase_credentials.json
+node_modules
