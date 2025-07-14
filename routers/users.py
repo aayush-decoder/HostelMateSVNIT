@@ -40,9 +40,29 @@ async def login(id_token:str):
 async def update_contact(contact_num:str,current_user:dict=Depends(get_current_user)):
     uid=current_user["uid"]
     doc_ref = db.collection("users").document(uid)
+    if not doc_ref.get().exists:
+        raise Exception("User does not exist")
     doc_ref.update({
-        "contact_number":contact_num
+        "contactNumber":contact_num
     })
+
+@router.put("/request_exchange/{target_user_id}")
+async def request_exchange(target_user_id:str,current_user:dict=Depends(get_current_user)):
+    my_data=db.collections("users").document(current_user["uid"])
+    his_room=db.collections("users").document(target_user_id)
+    if his_room.get().exists:
+        room_details=his_room.get().to_dict()
+        current_user["requestedRoom"]=room_details["roomId"]
+        my_data.update(
+            current_user
+        )
+        room_details["incomingRequests"].append()
+        his_room.update(
+            room_details
+        )
+        return {"messsage":"success"}
+    else:
+        raise HTTPException(status_code=404, detail="room not found")
 
 
 @router.delete("/{user_id}")
@@ -51,8 +71,6 @@ async def delete_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     db.delete_user(user_id)
     return {"message": "User deleted"}
-
-
 
 
 @router.get("/incoming-requests")
@@ -70,8 +88,8 @@ async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
             users_data.append({
                 "uid": uid,
                 "name": u.get("name"),  
-                "room_id": u.get("room_id"),
-                "admission_number": u.get("admission_number")
+                "room_id": u.get("roomId"),
+                "admission_number": u.get("admissionNumber")
             })
 
     return users_data
