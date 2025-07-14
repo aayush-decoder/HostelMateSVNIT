@@ -4,6 +4,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 import db
+from firebase_admin import db
 from firebase import auth as firebase_auth
 from auth.schemas import UserCreate,UserResponse,Token
 from auth.jwt_config import create_access_token,get_current_user
@@ -35,12 +36,14 @@ async def login(id_token:str):
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.put("/{user_id}")
-async def update_user(user_id: str, user: User):
-    if not db.get_user_by_id(user_id):
-        raise HTTPException(status_code=404, detail="User not found")
-    db.update_user(user_id, user.model_dump())
-    return {"message": "User updated"}
+@router.put("add_contact_number/{user_id}")
+async def update_contact(contact_num:str,current_user:dict=Depends(get_current_user)):
+    uid=current_user["uid"]
+    doc_ref = db.collection("users").document(uid)
+    doc_ref.update({
+        "contact_number":contact_num
+    })
+
 
 @router.delete("/{user_id}")
 async def delete_user(user_id: str):
@@ -48,3 +51,7 @@ async def delete_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     db.delete_user(user_id)
     return {"message": "User deleted"}
+
+@router.get("/me", response_model=UserResponse)
+def read_users_me(current_user: dict = Depends(get_current_user)):
+    return UserResponse(**current_user)
