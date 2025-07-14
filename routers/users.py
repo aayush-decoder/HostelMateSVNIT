@@ -4,8 +4,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 import db
-from firebase import auth
-from auth.models import UserCreate,UserResponse,Token
+from firebase import auth as firebase_auth
+from auth.schemas import UserCreate,UserResponse,Token
 from auth.jwt_config import create_access_token,get_current_user
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -25,7 +25,7 @@ async def get_user(user_id: str):
 @router.post("/login", response_model=Token)
 async def login(id_token:str):
     try:
-        decoded_token=auth.verify_id_token(id_token)
+        decoded_token=firebase_auth.verify_id_token(id_token)
         uid=decoded_token["uid"]
         email=decoded_token.get("email")
         uid=email.split("@")[0]
