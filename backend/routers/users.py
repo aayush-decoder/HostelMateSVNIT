@@ -8,6 +8,7 @@ from firebase_admin import db
 from firebase import auth as firebase_auth
 from auth.schemas import UserCreate,UserResponse,Token
 from auth.jwt_config import create_access_token, get_current_user
+import re
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -23,17 +24,39 @@ async def get_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@router.post("/login", response_model=Token)
-async def login(id_token:str):
+# auth/routes.py
+from fastapi import APIRouter, Request, HTTPException
+from firebase_admin import auth as firebase_auth
+from auth.jwt_config import create_access_token
+import re
+
+router = APIRouter(tags=["Auth"])
+
+
+EMAIL_REGEX = r"^[ui]24[a-z]{2}\d{3}@[a-z]+\.svnit\.in$"
+
+@router.post("/login")
+async def token(request: Request):
+    body = await request.json()
+    id_token = body.get("idToken")
+
+    if not id_token:
+        raise HTTPException(status_code=400, detail="Missing idToken")
+
     try:
-        decoded_token=firebase_auth.verify_id_token(id_token)
-        uid=decoded_token["uid"]
-        email=decoded_token.get("email")
-        uid=email.split("@")[0]
-        access_token = create_access_token(data={"sub": uid, "email": email})
-    except:
-        raise HTTPException(status_code=401, detail="Invalid ID token")
-    return {"access_token": access_token, "token_type": "bearer"}
+        decoded = firebase_auth.verify_id_token(id_token)
+        email = decoded.get("email")
+        uid = decoded.get("uid")
+
+        # if not re.match(EMAIL_REGEX, email):
+        #     raise HTTPException(status_code=403, detail="Only institutional emails allowed")
+
+        jwt_token = create_access_token({"sub": uid})
+        return {"access_token": jwt_token, "token_type": "bearer"}
+
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=f"Invalid Firebase token: {str(e)}")
+
 
 
 @router.put("add_contact_number/{user_id}")
