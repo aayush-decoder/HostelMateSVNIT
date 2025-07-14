@@ -7,6 +7,7 @@ import db
 from firebase import auth as firebase_auth
 from auth.schemas import UserCreate,UserResponse,Token
 from auth.jwt_config import create_access_token, get_current_user
+import re
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -24,12 +25,16 @@ async def get_user(user_id: str):
 
 @router.post("/login", response_model=Token)
 async def login(id_token:str):
+    INSTITUTE_EMAIL_REGEX = r'^[ui]24[a-z]{2}\d{3}@svnit\.[a-z]+\.ac\.in$'
     try:
         decoded_token=firebase_auth.verify_id_token(id_token)
         uid=decoded_token["uid"]
         email=decoded_token.get("email")
         uid=email.split("@")[0]
-        access_token = create_access_token(data={"sub": uid, "email": email})
+        if re.match(INSTITUTE_EMAIL_REGEX, email):
+            access_token = create_access_token(data={"sub": uid, "email": email})
+        else:
+            raise HTTPException()
     except:
         raise HTTPException(status_code=401, detail="Invalid ID token")
     return {"access_token": access_token, "token_type": "bearer"}
