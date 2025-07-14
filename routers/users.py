@@ -50,7 +50,7 @@ async def update_contact(contact_num:str,current_user:dict=Depends(get_current_u
 async def request_exchange(target_user_id:str,current_user:dict=Depends(get_current_user)):
     my_data=db.collections("users").document(current_user["uid"])
     his_room=db.collections("users").document(target_user_id)
-    if his_room.get().exists:
+    if his_room.get().exists and target_user_id!=current_user["uid"]:
         room_details=his_room.get().to_dict()
         current_user["requestedRoom"]=room_details["roomId"]
         my_data.update(
