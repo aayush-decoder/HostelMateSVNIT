@@ -1,8 +1,12 @@
 # routers/users.py
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException,Depends
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 import db
+from firebase import auth
+from auth.models import UserCreate,UserResponse,Token
+from auth.jwt_config import create_access_token,get_current_user
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -18,12 +22,18 @@ async def get_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@router.post("/{user_id}")
-async def create_user(user_id: str, user: User):
-    if db.get_user_by_id(user_id):
-        raise HTTPException(status_code=400, detail="User already exists")
-    db.create_user(user_id, user.model_dump())
-    return {"message": "User created"}
+@router.post("/login", response_model=Token)
+async def login(id_token:str):
+    try:
+        decoded_token=auth.verify_id_token(id_token)
+        uid=decoded_token["uid"]
+        email=decoded_token.get("email")
+        uid=email.split("@")[0]
+        access_token = create_access_token(data={"sub": uid, "email": email})
+    except:
+        raise HTTPException(status_code=401, detail="Invalid ID token")
+    return {"access_token": access_token, "token_type": "bearer"}
+
 
 @router.put("/{user_id}")
 async def update_user(user_id: str, user: User):
