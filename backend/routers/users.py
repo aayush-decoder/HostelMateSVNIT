@@ -49,6 +49,7 @@ async def token(request: Request):
         email = decoded.get("email")
         # email check here
         uid = email.split("@")[0].lower()
+        username=decoded.get("name")
 
         #check room data
         #if not add data
@@ -59,7 +60,8 @@ async def token(request: Request):
                     "roomId": "not_updated",
                     "contactNumber": "",
                     "requestedRoom":"",
-                    "incoming_requests": []
+                    "incoming_requests": [],
+                    "name":username
                 }
             )
 
@@ -147,6 +149,7 @@ def update_room_details(details:update_user,current_user:dict=Depends(get_curren
         current_user["conatactNumber"]=details.contact_number
         current_user["hostel"]=details.hostel
         room["count"]+=1
+        room["members"].append(current_user["uid"])
         # if we have current user that means user data exists so no need to check
         user_ref=db.collections("users").document(current_user["uid"])
         user_ref.update(current_user)
