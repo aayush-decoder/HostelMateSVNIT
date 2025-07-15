@@ -1,5 +1,4 @@
-.venv
 test.py
+.venv
 firebase_credentials.json
-.pyc
-__pycache__/
+node_modules
