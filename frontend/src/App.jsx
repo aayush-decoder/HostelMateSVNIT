@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { signInWithPopup, auth, provider } from './firebase';
 import { signOut } from 'firebase/auth';
+import Navbar from './components/ui/Navbar'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -55,19 +56,23 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "5rem" }}>
-      <h1>Roomie Login</h1>
+    <>
+      <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
+      
+      <div style={{ textAlign: "center", marginTop: "5rem" }}>
+        <h1>Roomie Login</h1>
 
-      {user ? (
-        <>
-          <p>You are logged in as: <strong>{user.name}</strong></p>
-          <p>Email: {user.email}</p>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <button onClick={handleLogin}>Login with Google</button>
-      )}
-    </div>
+        {user ? (
+          <>
+            <p>You are logged in as: <strong>{user.name}</strong></p>
+            <p>Email: {user.email}</p>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <button onClick={handleLogin}>Login with Google</button>
+        )}
+      </div>
+    </>
   );
 }
 
