@@ -2,3 +2,4 @@
 test.py
 firebase_credentials.json
 .pyc
+__pycache__/

@@ -6,10 +6,10 @@ from typing import Optional
 import db
 from firebase_admin import db
 from firebase import auth as firebase_auth
-from auth.schemas import UserCreate,UserResponse,Token
+from auth.schemas import update_user,UserResponse,Token
 from auth.jwt_config import create_access_token, get_current_user
 import re
-from check_room import check_room_data 
+from check_room import check_room_data ,check_room_status
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -135,3 +135,29 @@ async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
 @router.get("/me", response_model=UserResponse)
 def read_users_me(current_user: dict = Depends(get_current_user)):
     return UserResponse(**current_user)
+
+@router.post("/update_room_details/{room_no}")
+def update_room_details(details:update_user,current_user:dict=Depends(get_current_user)):
+    # this checks both things that if room exists and number of occupants
+    room_status=check_room_status(db,details.room_id.upper())
+    room_ref=db.collections("boysHostelLookup").document(details.room_id.upper())
+    room=room_ref.get().to_dict()
+    if room_status<2 and room_status>0:
+        current_user["roomId"]=details.room_id.upper()
+        current_user["conatactNumber"]=details.contact_number
+        current_user["hostel"]=details.hostel
+        room["count"]+=1
+        # if we have current user that means user data exists so no need to check
+        user_ref=db.collections("users").document(current_user["uid"])
+        user_ref.update(current_user)
+        room_ref.update(room)
+    elif (room_status<0):
+        return {"message","under_maintinance"}
+    else:
+        return {"message","room is full"}
+
+@router.get("/room_details/{branch_name}")
+def get_room_details(branch_name:str):
+    #logic not clear
+    pass
+        
