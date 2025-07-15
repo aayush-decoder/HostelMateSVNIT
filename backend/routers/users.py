@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel, EmailStr
 from typing import Optional
@@ -7,42 +7,26 @@ from firebase_admin import firestore
 from firebase import auth as firebase_auth
 from auth.schemas import update_user, UserResponse
 from auth.jwt_config import create_access_token, get_current_user
-from .check_room import check_room_data, check_room_status
+from .check_room import check_room_data, check_room_status, get_room_members
 
-router = APIRouter(prefix="/users", tags=["Users"])
-db = firestore.client()  
-
-class User(BaseModel):
-    name: str
-    email: EmailStr
-    age: Optional[int] = None
-
-@router.get("/{user_id}")
-async def get_user(user_id: str):
-    user = mydb.get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
+# router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(tags=["Users"])
+db = firestore.client()
 
 class User(BaseModel):
     name: str
     email: EmailStr
     age: Optional[int] = None
 
-@router.get("/{user_id}")
+@router.get("/users/{user_id}")
 async def get_user(user_id: str):
     user = mydb.get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-# auth/routes.py
-from fastapi import APIRouter, Request, HTTPException
-from firebase_admin import auth as firebase_auth
-from auth.jwt_config import create_access_token
-import re
 
-router = APIRouter(tags=["Auth"])
+
 
 
 # EMAIL_REGEX = r"^[ui]24[a-z]{2}\d{3}@[a-z]+\.svnit\.in$"
@@ -107,7 +91,7 @@ async def request_exchange(target_user_id:str,current_user:dict=Depends(get_curr
         raise HTTPException(status_code=404, detail="room not found")
 
 
-@router.delete("/{user_id}")
+@router.delete("/delete-user/{user_id}")
 async def delete_user(user_id: str):
     if not mydb.get_user_by_id(user_id):
         raise HTTPException(status_code=404, detail="User not found")
@@ -115,14 +99,17 @@ async def delete_user(user_id: str):
     return {"message": "User deleted"}
 
 
+
+
 @router.get("/incoming-requests")
 async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
-    incoming_uids = current_user.get("incoming_requests", [])
-
+    incoming_uids = current_user.get("incommingRequests", [])
+    print(incoming_uids)
     if not incoming_uids:
         return []
 
     users_data = []
+    db = firestore.client()  
     for uid in incoming_uids:
         user_doc = db.collection("users").document(uid).get()
         if user_doc.exists:
@@ -136,9 +123,12 @@ async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
 
     return users_data
 
+
+
 @router.get("/me", response_model=UserResponse)
 def read_users_me(current_user: dict = Depends(get_current_user)):
     return UserResponse(**current_user)
+
 
 @router.post("/update_room_details/{room_no}")
 def update_room_details(details:update_user,current_user:dict=Depends(get_current_user)):
@@ -184,4 +174,5 @@ def get_room_details(branch_name: str):
             })
 
     return users_data
+
 

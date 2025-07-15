@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { signInWithPopup, auth, provider } from './firebase';
 import { signOut } from 'firebase/auth';
 import Navbar from './components/ui/Navbar'
+import IncomingRequests from './featurePopups/IncomingRequests';
+import RequestExchange from './featurePopups/SendRequest';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -60,6 +62,11 @@ function App() {
       <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
       
       <div style={{ textAlign: "center", marginTop: "5rem" }}>
+
+        <IncomingRequests />
+        <br />
+        <RequestExchange />
+
         <h1>Roomie Login</h1>
 
         {user ? (
