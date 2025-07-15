@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { signInWithPopup, auth, provider } from './firebase';
 import { signOut } from 'firebase/auth';
 import Navbar from './components/ui/Navbar'
+import { useContext } from 'react';
+import LoginContext from './context/logincontext';
 import IncomingRequests from './featurePopups/IncomingRequests';
 import RequestExchange from './featurePopups/SendRequest';
 
 function App() {
   const [user, setUser] = useState(null);
   const [appToken, setAppToken] = useState(null);
-
+  const login_context=useContext(LoginContext)
   // Check login on load
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -17,6 +19,7 @@ function App() {
     if (token && email) {
       setAppToken(token);
       setUser({ email, name });
+      login_context.setLogin(true);
     }
   }, []);
 
@@ -38,6 +41,7 @@ function App() {
         localStorage.setItem("email", firebaseUser.email);
         localStorage.setItem("name", firebaseUser.displayName);
         setUser({ email: firebaseUser.email, name: firebaseUser.displayName });
+        login_context.setLogin(true)
         setAppToken(data.access_token);
       } else {
         alert("Login failed. " + (data.detail || ""));
@@ -53,6 +57,7 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("name");
+    login_context.setLogin(false)
     setUser(null);
     setAppToken(null);
   };

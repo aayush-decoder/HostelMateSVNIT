@@ -1,34 +1,19 @@
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import  Depends ,APIRouter, Request, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 import db as mydb
 from firebase_admin import firestore 
-from firebase import auth as firebase_auth
+from firebase_admin import auth as firebase_auth
+
 from auth.schemas import update_user, UserResponse
 from auth.jwt_config import create_access_token, get_current_user
-from .check_room import check_room_data, check_room_status, get_room_members
+from .check_room import check_room_data, check_room_status
 
-# router = APIRouter(prefix="/users", tags=["Users"])
 router = APIRouter(tags=["Users"])
-db = firestore.client()
+db = firestore.client()  
 
-class User(BaseModel):
-    name: str
-    email: EmailStr
-    age: Optional[int] = None
-
-@router.get("/users/{user_id}")
-async def get_user(user_id: str):
-    user = mydb.get_user_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
-
-
-
-
-
+# auth/routes.py
 # EMAIL_REGEX = r"^[ui]24[a-z]{2}\d{3}@[a-z]+\.svnit\.in$"
 
 
@@ -36,7 +21,7 @@ async def get_user(user_id: str):
 async def token(request: Request):
     body = await request.json()
     id_token = body.get("idToken")
-
+    print("token recived")
     if not id_token:
         raise HTTPException(status_code=400, detail="Missing idToken")
 
@@ -96,20 +81,19 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
 
 
 
-@router.delete("/delete-user/{user_id}")
-async def delete_user(user_id: str):
-    if not mydb.get_user_by_id(user_id):
-        raise HTTPException(status_code=404, detail="User not found")
-    mydb.delete_user(user_id)
-    return {"message": "User deleted"}
-
-
+# @router.delete("/{user_id}")
+# async def delete_user(user_id: str):
+#     if not mydb.get_user_by_id(user_id):
+#         raise HTTPException(status_code=404, detail="User not found")
+#     mydb.delete_user(user_id)
+#     return {"message": "User deleted"}
 
 
 @router.get("/incoming-requests")
 async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
     incoming_uids = current_user.get("incommingRequests", [])
     print(incoming_uids)
+
     if not incoming_uids:
         return []
 
@@ -128,10 +112,23 @@ async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
 
     return users_data
 
-
-
 @router.get("/me", response_model=UserResponse)
 def read_users_me(current_user: dict = Depends(get_current_user)):
+    #room mate logic
+    print("reached me")
+    room_mate="no details found"
+    if current_user["roomId"]!="":
+        doc_ref = db.collection("boysHostelLookup").document(current_user["roomId"])
+        if doc_ref.get().exists():
+            member_list=doc_ref.get().to_dict()["members"]
+            if len(member_list)==2:
+                mem1=member_list[0] 
+                mem2=member_list[0] 
+                if mem1!=current_user["admissionNumber"]:
+                    room_mate=mem1
+                else:
+                    room_mate=mem2
+    current_user.update({"room_mate":room_mate})
     return UserResponse(**current_user)
 
 
@@ -179,5 +176,4 @@ def get_room_details(branch_name: str):
             })
 
     return users_data
-
 
