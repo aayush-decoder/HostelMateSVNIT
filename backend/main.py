@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import users
+from routers import users, root
 from fastapi.middleware.cors import CORSMiddleware
 
 app=FastAPI()
@@ -12,8 +12,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+app.include_router(root.router)
 app.include_router(users.router)
+
 
 @app.get("/")
 def read_root():

@@ -11,3 +11,12 @@ def check_room_status(db, room_id):
         return doc.to_dict()["count"]
     else:
         raise HTTPException(status_code=404, detail="Room does not exist")
+
+
+def get_room_members(db, room_id):
+    doc_ref = db.collection("boysHostelLookup").document(room_id.upper())
+    doc = doc_ref.get()
+    if doc.exists:
+        return doc.to_dict()["members"]
+    else:
+        raise HTTPException(status_code=404, detail="Room or members does not exist")
