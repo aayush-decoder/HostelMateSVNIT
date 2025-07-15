@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import LoginContext from "../context/logincontext";
+import LoadingSpinner from "./LoadingSpinner";
 export default function Myroom() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const login_info=useContext(LoginContext);
   const token = localStorage.getItem("token");
   useEffect(() => {
-    if (login_info && token){
+    console.log(login_info.login)
+    if (login_info.login==true && token){
       // fetch the data
       fetch("http://localhost:8000/me",{
           method: "GET",
@@ -16,21 +18,23 @@ export default function Myroom() {
           },
         })
         .then(response=>response.json())
-        .then(data=>{console.log(data);setUserData(data)})
+        .then(data=>{console.log(data);if(data.name){setUserData(data)}})
         .catch(error=>console.error("Error",error));
       }
       setLoading(false);
-  }, []);
-  if (login_info.login==false){
+  }, [login_info]);
+
+  if (loading) {
+      return (
+       <LoadingSpinner/>
+      );
+    }
+
+  if (login_info.login==false || userData === null){
       return(
-        <div className="text-white px-4 py-2 my-2 bg-red-600 rounded-2xl text-2xl">please login to view info</div>
+        <div className="text-white  py-2 my-2 bg-red-600 rounded-2xl text-2xl text-center">please login to view info</div>
       )
     }
-if (loading || userData===null ) {
-    return (
-      <div className="w-full h-48 bg-gray-200 animate-pulse rounded-2xl"></div>
-    );
-  }
 
   return (
     <div className="max-w-xl mx-auto mt-10 bg-white shadow-2xl rounded-2xl p-6">
@@ -52,31 +56,42 @@ if (loading || userData===null ) {
       <div className="mt-6 grid grid-cols-2 gap-4">
         <div>
           <h4 className="font-semibold text-sm text-gray-500">Current Room</h4>
-          <p className="text-lg">{userData.roomId}</p>
+          <p className="text-lg">{userData.hostel} {userData.roomId}</p>
         </div>
         <div>
           <h4 className="font-semibold text-sm text-gray-500">Requested Room</h4>
           <p className="text-lg">{userData.requestedRoom || "None"}</p>
         </div>
       </div>
-
-      <div className="mt-6">
-        <h4 className="font-semibold text-sm text-gray-500 mb-2">Incoming Requests</h4>
-        {userData.incomingRequests.length === 0 ? (
-          <p className="text-sm">No requests yet.</p>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            {userData.incomingRequests.map((id, idx) => (
-              <span
-                key={idx}
-                className="px-2 py-1 text-sm border border-gray-300 rounded-full"
-              >
-                {id}
-              </span>
-            ))}
-          </div>
-        )}
+      <div className="mt-6 flex flex-row justify-between">
+        <div>
+            <h4 className="font-semibold text-sm text-gray-500 mb-2">Incoming Requests</h4>
+            {userData.incommingRequests.length === 0 ? (
+              <p className="text-sm">No requests yet.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {userData.incommingRequests.map((id, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2 py-1 text-sm border border-gray-300 rounded-full"
+                  >
+                    {id}
+                  </span>
+                ))}
+              
+              </div>
+            )}
+        </div>
+        <div>
+          <h1 className="font-semibold text-sm text-gray-500">
+            room mate
+          </h1>
+          <p>
+            {userData.room_mate}
+          </p>
+        </div>
       </div>
+      
     </div>
   );
 }

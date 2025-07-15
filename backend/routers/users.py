@@ -24,7 +24,6 @@ async def token(request: Request):
     print("token recived")
     if not id_token:
         raise HTTPException(status_code=400, detail="Missing idToken")
-
     try:
         decoded = firebase_auth.verify_id_token(id_token)
         email = decoded.get("email")
@@ -48,7 +47,7 @@ async def token(request: Request):
     except Exception as e:
         raise HTTPException(status_code=401, detail=f"Invalid Firebase token: {str(e)}")
 
-@router.put("add_contact_number/{user_id}")
+@router.post("add_contact_number/{user_id}")
 async def update_contact(contact_num:str,current_user:dict=Depends(get_current_user)):
     uid=current_user["uid"]
     doc_ref = db.collection("users").document(uid)
@@ -58,7 +57,7 @@ async def update_contact(contact_num:str,current_user:dict=Depends(get_current_u
         "contactNumber":contact_num
     })
 
-@router.put("/request_exchange/{target_user_id}")
+@router.post("/request_exchange/{target_user_id}")
 async def request_exchange(target_user_id:str,current_user:dict=Depends(get_current_user)):
     my_data=db.collection("users").document(current_user["uid"])
     his_room=db.collection("users").document(target_user_id)
@@ -68,7 +67,7 @@ async def request_exchange(target_user_id:str,current_user:dict=Depends(get_curr
         my_data.update(
             current_user
         )
-        room_details["incomingRequests"].append()
+        room_details["incommingRequests"].append()
         his_room.update(
             room_details
         )
@@ -84,9 +83,9 @@ async def request_exchange(target_user_id:str,current_user:dict=Depends(get_curr
 #     mydb.delete_user(user_id)
 #     return {"message": "User deleted"}
 
-
 @router.get("/incoming-requests")
 async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
+    print(current_user)
     incoming_uids = current_user.get("incommingRequests", [])
     print(incoming_uids)
 
@@ -124,6 +123,10 @@ def read_users_me(current_user: dict = Depends(get_current_user)):
                     room_mate=mem1
                 else:
                     room_mate=mem2
+                doc_ref2 = db.collection("users").document(room_mate).get()
+                if doc_ref2.exists:
+                    room_mate=doc_ref2.to_dict()["name"]
+    
     current_user.update({"room_mate":room_mate})
     return UserResponse(**current_user)
 

@@ -15,7 +15,7 @@ class UserResponse(BaseModel):
     room_mate:str
     name:str
     requestedRoom: Optional[str] = ""
-    incomingRequests: Optional[List[str]] = []
+    incommingRequests: Optional[List[str]] = []
 
 class Token(BaseModel):
     access_token: str

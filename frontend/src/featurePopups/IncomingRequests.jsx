@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-
+import React, {useContext, useEffect, useState } from 'react';
+import LoginContext from "../context/logincontext";
 export default function IncomingRequests() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('token');
-
+  const login_info=useContext(LoginContext);
   useEffect(() => {
     const fetchRequests = async () => {
       try {
@@ -17,6 +17,7 @@ export default function IncomingRequests() {
           throw new Error('Failed to fetch incoming requests');
         }
         const data = await res.json();
+        console.log(data)
         setRequests(data);
       } catch (error) {
         console.error(error);
@@ -24,10 +25,17 @@ export default function IncomingRequests() {
         setLoading(false);
       }
     };
-
-    fetchRequests();
-  }, [token]);
-
+    if(login_info.login){
+      fetchRequests();
+    }
+  }, [token,login_info]);
+  if (login_info.login==false){
+    return(
+      <div className="p-4 bg-gray-900 text-white rounded-md shadow-md">
+          please login to fetch incoming requests
+        </div>
+      )
+  }
   if (loading) {
     return (
       <div className="p-4 bg-gray-900 text-white rounded-md shadow-md">
