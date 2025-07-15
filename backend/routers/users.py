@@ -38,7 +38,8 @@ async def token(request: Request):
                 "contactNumber": "",
                 "requestedRoom": "",
                 "incoming_requests": [],
-                "name": username
+                "name": username,
+                "hostel":""
             })
 
         jwt_token = create_access_token({"sub": uid})
@@ -114,7 +115,7 @@ def read_users_me(current_user: dict = Depends(get_current_user)):
     room_mate="no details found"
     if current_user["roomId"]!="":
         doc_ref = db.collection("boysHostelLookup").document(current_user["roomId"])
-        if doc_ref.get().exists():
+        if doc_ref.get().exists:
             member_list=doc_ref.get().to_dict()["members"]
             if len(member_list)==2:
                 mem1=member_list[0] 

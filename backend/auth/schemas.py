@@ -12,6 +12,8 @@ class UserResponse(BaseModel):
     roomId: str
     hostel:str
     contactNumber:str
+    room_mate:str
+    name:str
     requestedRoom: Optional[str] = ""
     incomingRequests: Optional[List[str]] = []
 

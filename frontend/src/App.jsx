@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import LoginContext from './context/logincontext';
 import IncomingRequests from './featurePopups/IncomingRequests';
 import RequestExchange from './featurePopups/SendRequest';
+import Myroom from './components/Myroom';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -65,7 +66,7 @@ function App() {
   return (
     <>
       <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
-      
+      <Myroom/>
       <div style={{ textAlign: "center", marginTop: "5rem" }}>
 
         <IncomingRequests />
