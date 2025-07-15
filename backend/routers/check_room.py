@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException,Depends
 # for checking if we have room data
 def check_room_data(db,uid):
-    data_obj=db.collections("users").document(uid)
+    data_obj=db.collection("users").document(uid)
     data_get=data_obj().get()
     if data_get.exists:
         return True
@@ -9,7 +9,7 @@ def check_room_data(db,uid):
         return False
 
 def check_room_status(db,room_id):
-    doc_ref=db.collections("boysHostelLookup").document(room_id.upper())
+    doc_ref=db.collection("boysHostelLookup").document(room_id.upper())
     doc=doc_ref.get()
     if doc.exists:
         return doc.to_dict()["count"]

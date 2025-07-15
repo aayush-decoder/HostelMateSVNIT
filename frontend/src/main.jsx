@@ -7,7 +7,7 @@ import LoginContextProvider from './context/Logincontextprovider.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <LoginContextProvider>
-    <App />
+      <App/>
     </LoginContextProvider>
   </StrictMode>,
 )

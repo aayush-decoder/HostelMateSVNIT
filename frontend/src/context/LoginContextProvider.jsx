@@ -1,12 +1,12 @@
-import React from "react";
+import React, { Children } from "react";
 import { useState } from "react";
 import LoginContext from "./logincontext";
-const LoginContextProvider=({childern})=>{
+const LoginContextProvider=({children})=>{
     const [login,setLogin]=useState(false)
     return (
-    <UserContext.Provider value={{login,setLogin}}>
-        {childern}
-    </UserContext.Provider>
+    <LoginContext.Provider value={{login,setLogin}}>
+        {children}
+    </LoginContext.Provider>
     )
 }
 export default LoginContextProvider
