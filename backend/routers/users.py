@@ -9,7 +9,7 @@ from firebase import auth as firebase_auth
 from auth.schemas import update_user,UserResponse,Token
 from auth.jwt_config import create_access_token, get_current_user
 import re
-from check_room import check_room_data ,check_room_status
+from .check_room import check_room_data, check_room_status
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -157,7 +157,25 @@ def update_room_details(details:update_user,current_user:dict=Depends(get_curren
         return {"message","room is full"}
 
 @router.get("/room_details/{branch_name}")
-def get_room_details(branch_name:str):
-    #logic not clear
-    pass
-        
+def get_room_details(branch_name: str):
+    MAX_STUDENTS = 250
+    admissionNumberTemplate = f"u24{branch_name.lower()}"
+    users_data = []
+
+    for roll_no in range(1, MAX_STUDENTS + 1):
+        formatted_roll = f"{roll_no:03d}" 
+        uid = admissionNumberTemplate + formatted_roll
+        doc_ref = db.collection("users").document(uid).get()
+
+        if doc_ref.exists:
+            data = doc_ref.to_dict()
+            users_data.append({
+                "uid": uid,
+                "name": data.get("name"),
+                "roomId": data.get("roomId"),
+                "hostel": data.get("hostel"),
+                "contactNumber": data.get("contactNumber")
+            })
+
+    return users_data
+
