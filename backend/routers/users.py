@@ -72,23 +72,28 @@ async def update_contact(contact_num:str,current_user:dict=Depends(get_current_u
         "contactNumber":contact_num
     })
 
-@router.put("/request_exchange/{target_user_id}")
-async def request_exchange(target_user_id:str,current_user:dict=Depends(get_current_user)):
+
+@router.post("/request_exchange/{target_user_id}")
+async def request_exchange(target_user_id:str, current_user: dict=Depends(get_current_user)):
+
     my_data=db.collection("users").document(current_user["uid"])
     his_room=db.collection("users").document(target_user_id)
+
     if his_room.get().exists and target_user_id!=current_user["uid"]:
         room_details=his_room.get().to_dict()
         current_user["requestedRoom"]=room_details["roomId"]
         my_data.update(
             current_user
         )
-        room_details["incomingRequests"].append()
+        room_details.setdefault("incomingRequests", []).append(current_user["uid"])
+
         his_room.update(
             room_details
         )
         return {"messsage":"success"}
     else:
         raise HTTPException(status_code=404, detail="room not found")
+
 
 
 @router.delete("/delete-user/{user_id}")
