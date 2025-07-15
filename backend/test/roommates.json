@@ -539,6 +539,20 @@
   },
   {
     "hostel": "Swami Vivekanad Bhavan",
+    "room": "A416",
+    "roommates": [
+      {
+        "name": "Daksh Kamlesh Kumar Parmar",
+        "admission_no": "U24CH032"
+      },
+      {
+        "name": "Het Patel",
+        "admission_no": "U24CH033"
+      }
+    ]
+  },
+  {
+    "hostel": "Swami Vivekanad Bhavan",
     "room": "A504",
     "roommates": [
       {
