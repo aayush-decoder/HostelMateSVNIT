@@ -17,6 +17,21 @@ db = firestore.client()
 # EMAIL_REGEX = r"^[ui]24[a-z]{2}\d{3}@[a-z]+\.svnit\.in$"
 
 
+
+class User(BaseModel):
+    name: str
+    email: EmailStr
+    age: Optional[int] = None
+
+
+@router.get("/users/{user_id}")
+async def get_user(user_id: str):
+    user = mydb.get_user_by_id(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+
 @router.post("/login")
 async def token(request: Request):
     body = await request.json()
@@ -47,7 +62,7 @@ async def token(request: Request):
     except Exception as e:
         raise HTTPException(status_code=401, detail=f"Invalid Firebase token: {str(e)}")
 
-@router.put("add_contact_number/{user_id}")
+@router.post("add_contact_number/{user_id}")
 async def update_contact(contact_num:str,current_user:dict=Depends(get_current_user)):
     uid=current_user["uid"]
     doc_ref = db.collection("users").document(uid)
@@ -81,12 +96,12 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
 
 
 
-# @router.delete("/{user_id}")
-# async def delete_user(user_id: str):
-#     if not mydb.get_user_by_id(user_id):
-#         raise HTTPException(status_code=404, detail="User not found")
-#     mydb.delete_user(user_id)
-#     return {"message": "User deleted"}
+@router.delete("users/{user_id}")
+async def delete_user(user_id: str):
+    if not mydb.get_user_by_id(user_id):
+        raise HTTPException(status_code=404, detail="User not found")
+    mydb.delete_user(user_id)
+    return {"message": "User deleted"}
 
 
 @router.get("/incoming-requests")
