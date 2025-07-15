@@ -9,6 +9,7 @@ from firebase import auth as firebase_auth
 from auth.schemas import UserCreate,UserResponse,Token
 from auth.jwt_config import create_access_token, get_current_user
 import re
+from check_room import check_room_data 
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -46,7 +47,21 @@ async def token(request: Request):
     try:
         decoded = firebase_auth.verify_id_token(id_token)
         email = decoded.get("email")
-        uid = decoded.get("uid")
+        # email check here
+        uid = email.split("@")[0].lower()
+
+        #check room data
+        #if not add data
+        if not check_room_data(db,uid):
+            db.collections("users").document(uid).set(
+                {
+                    "admissionNumber":uid,
+                    "roomId": "not_updated",
+                    "contactNumber": "",
+                    "requestedRoom":"",
+                    "incoming_requests": []
+                }
+            )
 
         # if not re.match(EMAIL_REGEX, email):
         #     raise HTTPException(status_code=403, detail="Only institutional emails allowed")
