@@ -25,7 +25,7 @@ MAINTENANCE_ROOMS = [
 MAINTENANCE_ROOMS = [room.replace("-", "") for room in MAINTENANCE_ROOMS]  
 
 
-with open("test/roommates.json") as f:
+with open("test/roommates_new.json") as f:
     data = json.load(f)
 
 roommate_counter = {}
