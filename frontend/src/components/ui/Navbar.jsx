@@ -29,15 +29,17 @@ export default function Navbar({ user, handleLogin, handleLogout }) {
               />
               <div className="text-sm">
                 <div className="font-semibold">{user.name}</div>
-                <div className="text-gray-400 text-xs">
+                <div className="flex justify-between items-center">
+                  <div className="text-gray-400 text-xs inline-block">
                   {getAdmissionNumber(user.email)}
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="text-red-400 mt-1 hover:underline text-xs"
+                  className="text-red-400 mt-1 hover:underline text-xs inline-block"
                 >
                   Logout
                 </button>
+                </div>
               </div>
             </div>
           ) : (

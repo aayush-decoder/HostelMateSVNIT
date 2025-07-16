@@ -49,7 +49,7 @@ for room_entry in data:
             "name": person["name"],
             "contactNumber": "",
             "incommingRequests": [],
-            "requestedRoom": "",
+            "requestedRooms": [], # {"roomId": "", "uid": ""} expected
             "roomId": room_id,
             "hostel": hostel
         }

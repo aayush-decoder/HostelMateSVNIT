@@ -96,12 +96,13 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
 
 
 
-@router.delete("users/{user_id}")
-async def delete_user(user_id: str):
-    if not mydb.get_user_by_id(user_id):
-        raise HTTPException(status_code=404, detail="User not found")
-    mydb.delete_user(user_id)
-    return {"message": "User deleted"}
+# @router.delete("users/{user_id}")
+# async def delete_user(user_id: str):
+#     if not mydb.get_user_by_id(user_id):
+#         raise HTTPException(status_code=404, detail="User not found")
+#     mydb.delete_user(user_id)
+#     return {"message": "User deleted"}
+
 
 @router.get("/incoming-requests")
 async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
@@ -151,27 +152,36 @@ def read_users_me(current_user: dict = Depends(get_current_user)):
     return UserResponse(**current_user)
 
 
-@router.post("/update_room_details")
-def update_room_details(details:update_user,current_user:dict=Depends(get_current_user)):
-    # this checks both things that if room exists and number of occupants
-    room_status=check_room_status(db,details.room_id.upper())
-    room_ref=db.collection("boysHostelLookup").document(details.room_id.upper())
-    room=room_ref.get().to_dict()
-    if room_status<2 and room_status>0:
-        current_user["roomId"]=details.room_id.upper()
-        current_user["conatactNumber"]=details.contact_number
-        current_user["hostel"]=details.hostel
-        room["count"]+=1
-        room["members"].append(current_user["uid"])
-        # if we have current user that means user data exists so no need to check
-        user_ref=db.collection("users").document(current_user["uid"])
-        user_ref.update(current_user)
-        room_ref.update(room)
-        return({"message":"success"})
-    elif (room_status<0):
-        return {"message","under_maintinance"}
+@router.post("/update_room_details/{room_no}")
+def update_room_details(details: update_user, current_user: dict = Depends(get_current_user)):
+    room_id = details.room_id.upper()
+
+    room_status = check_room_status(db, room_id)
+    room_ref = db.collection("boysHostelLookup").document(room_id)
+    room = room_ref.get().to_dict()
+
+    if room_status <= 2 and room_status >= 0:
+        # Create a copy to avoid mutating shared user state
+        updated_user = current_user.copy()
+        updated_user["roomId"] = room_id
+        updated_user["contactNumber"] = details.contact_number
+        updated_user["hostel"] = details.hostel
+
+        # room["count"] += 1
+        # room["members"].append(current_user["uid"])
+
+        # Update user in Firestore
+        user_ref = db.collection("users").document(current_user["uid"])
+        user_ref.update(updated_user)
+        # room_ref.update(room)
+
+        return {"message": "Room and user details updated successfully."}
+
+    elif room_status < 0:
+        return {"message": "under_maintenance"}
+
     else:
-        return {"message","room is full"}
+        return {"message": "Room is full or something unexpected occurred."}
 
 
 @router.get("/room_details/{branch_name}")
