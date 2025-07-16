@@ -53,7 +53,7 @@ export default function IncomingRequests() {
   }
 
   return (
-    <div className="p-4 bg-theme text-theme-ink rounded-lg shadow-md space-y-3">
+    <div className="p-4 bg-theme h-full text-theme-ink rounded-lg shadow-md space-y-3">
       <h2 className="text-xl font-semibold mb-2 border-b border-theme-tertiary pb-1">Incoming Requests</h2>
       {requests.map((req) => (
         <div

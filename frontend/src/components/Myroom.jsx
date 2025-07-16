@@ -63,8 +63,8 @@ export default function Myroom() {
           </p>
           <p className="text-sm text-gray-400">
             📞 Contact:{" "}
-            {userData.phoneNumber ? (
-              <span className="text-white">{userData.phoneNumber}</span>
+            {userData.contactNumber ? (
+              <span className="text-white">{userData.contactNumber}</span>
             ) : (
               <a className="text-yellow-400 underline cursor-pointer">
                 Add contact so people can reach out
@@ -83,7 +83,7 @@ export default function Myroom() {
           <h4 className="font-semibold text-sm text-gray-500">Requested Room</h4>
             {userData.requestedRooms.length > 0 ? (
               userData.requestedRooms.map((e, idx) => (
-                <p key={idx} className="text-lg text-black">
+                <p key={idx} className="text-lg">
                   {e.roomId}
                 </p>
               ))

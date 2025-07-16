@@ -7,6 +7,7 @@ import RequestExchange from './featurePopups/SendRequest';
 import Myroom from './components/Myroom';
 import RoomSetupModal from "./featurePopups/UpdateDetailsPopup";
 import LoginContext from './context/logincontext';
+import OutgoinRequests from './featurePopups/OutgoinRequests';
 import { gsap } from "gsap";
 
 export default function App() {
@@ -127,17 +128,18 @@ export default function App() {
         {/* 🔥 Responsive layout */}
         <div className="flex flex-col lg:flex-row lg:items-start gap-6 w-full px-2">
           {/* Left - RequestExchange */}
-          <div className="lg:w-1/2 w-full min-h-[16rem] bg-theme backdrop-blur-[6px] p-4 rounded-xl shadow-md border border-gray-800">
+          <div className="lg:w-1/2 w-full flex flex-col justify-center bg-theme backdrop-blur-[6px] p-4 rounded-xl shadow-md border border-gray-800">
             <RequestExchange />
+            <OutgoinRequests/>
           </div>
 
           {/* Right - IncomingRequests */}
-          <div className="lg:w-1/2 w-full bg-gray-900 p-4 rounded-xl shadow-md border border-gray-800">
+          <div className="lg:w-1/2 w-full lg:h-full bg-gray-900 p-4 rounded-xl  shadow-md border border-gray-800">
             <IncomingRequests />
           </div>
         </div>
 
-        <div className="text-center mt-10 mx-auto space-y-3 backdrop-blur-[4px] bg-[#ffffff64] w-[500px] rounded-xl">
+        <div className="text-center mt-10 mx-auto space-y-3 backdrop-blur-[4px] bg-[#ffffff64] rounded-xl">
           <h2 className="text-xl font-bold text-green-600 text-shadow-gray-800">Roomie Login Info</h2>
 
           {user ? (
