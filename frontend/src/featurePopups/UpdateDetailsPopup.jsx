@@ -93,15 +93,15 @@ export default function RoomSetupModal({ isOpen, onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur bg-black/50">
       <div
         ref={modalRef}
-        className="bg-gray-900 text-white p-6 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700"
+        className="bg-theme text-theme-ink p-6 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700"
       >
-        <h2 className="text-2xl font-bold mb-4">🏠 Let’s get your space dialed in!</h2>
+        <h2 className="text-2xl font-bold mb-4">🏠 Let's get your space dialed in!</h2>
 
         {error && <div className="text-red-400 text-sm mb-3">{error}</div>}
 
         <div className="space-y-4 text-left">
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Name</label>
+            <label className="block text-sm mb-1 text-theme-ink-secondary">Name</label>
             <input
               type="text"
               readOnly
@@ -111,7 +111,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
           </div>
 
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Admission Number</label>
+            <label className="block text-sm mb-1 text-theme-ink-secondary">Admission Number</label>
             <input
               type="text"
               readOnly
@@ -121,7 +121,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
           </div>
 
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Room Number</label>
+            <label className="block text-sm mb-1 text-theme-ink-secondary">Room Number</label>
             <input
               type="text"
               value={roomId}
@@ -133,7 +133,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
           </div>
 
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Hostel</label>
+            <label className="block text-sm mb-1 text-theme-ink-secondary">Hostel</label>
             <select
               value={hostel}
               onChange={(e) => setHostel(e.target.value)}
@@ -147,7 +147,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
           </div>
 
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Contact Number (optional)</label>
+            <label className="block text-sm mb-1 text-theme-ink-secondary">Contact Number (optional)</label>
             <input
               type="tel"
               value={contact}

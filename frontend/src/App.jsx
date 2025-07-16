@@ -96,7 +96,13 @@ export default function App() {
     <>
       <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
 
-      <div ref={pageRef} className="px-4 py-8 bg-gray-950 text-white min-h-screen">
+      {/* dark mode: bg-gray-950 text-white */}
+      <div
+        ref={pageRef}
+        className="px-4 py-8 min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed", backgroundBlendMode: "multiply" }}
+      >
+
 
       <Myroom />
 
@@ -119,18 +125,20 @@ export default function App() {
         <RoomSetupModal isOpen={showModal} onClose={() => setShowModal(false)} />
 
         {/* 🔥 Responsive layout */}
-        <div className="flex flex-col lg:flex-row gap-6 w-full px-2">
-          <div className="lg:w-1/2 w-full bg-gray-900 p-4 rounded-xl shadow-md border border-gray-800">
+        <div className="flex flex-col lg:flex-row lg:items-start gap-6 w-full px-2">
+          {/* Left - RequestExchange */}
+          <div className="lg:w-1/2 w-full min-h-[16rem] bg-theme backdrop-blur-[6px] p-4 rounded-xl shadow-md border border-gray-800">
             <RequestExchange />
           </div>
 
+          {/* Right - IncomingRequests */}
           <div className="lg:w-1/2 w-full bg-gray-900 p-4 rounded-xl shadow-md border border-gray-800">
             <IncomingRequests />
           </div>
         </div>
 
-        <div className="text-center mt-10 space-y-3">
-          <h2 className="text-xl font-semibold text-green-400">Roomie Login Info</h2>
+        <div className="text-center mt-10 mx-auto space-y-3 backdrop-blur-[4px] bg-[#ffffff64] w-[500px] rounded-xl">
+          <h2 className="text-xl font-bold text-green-600 text-shadow-gray-800">Roomie Login Info</h2>
 
           {user ? (
             <>

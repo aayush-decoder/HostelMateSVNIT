@@ -101,23 +101,24 @@ export default function RequestExchange() {
   };
 
   return (
-    <div className="p-6 bg-gray-900 text-white rounded-lg shadow-md max-w-xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">Request Room Exchange</h2>
+    // darkm mode: bg-gray-900 text-white
+    <div className="p-6 rounded-lg shadow-md max-w-xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4 stroked-font">Request Room Exchange</h2>
 
       <input
         type="text"
         placeholder="Enter room ID (e.g., B302)"
         value={roomId}
         onChange={handleRoomChange}
-        className="w-full p-2 mb-4 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none"
+        className="w-full p-2 mb-4 bg-theme border border-gray-700 rounded-md text-theme-ink focus:outline-none"
       />
 
       {warning && <div className="text-yellow-400 text-sm mb-3">{warning}</div>}
-      {loading && <div className="text-gray-400 mb-2">Loading room data...</div>}
+      {loading && <div className="text-theme-ink-tertiary mb-2">Loading room data...</div>}
 
       {members.length > 0 && !loading && (
         <div className="space-y-3">
-          <p className="text-sm text-gray-300 mb-2">Click to select roommate(s) to send exchange request:</p>
+          <p className="text-sm text-theme-ink-tertiary mb-2">Click to select roommate(s) to send exchange request:</p>
           {members.map((uid) => {
             const user = userInfoMap[uid];
             const isSelected = selected.includes(uid);
@@ -132,8 +133,8 @@ export default function RequestExchange() {
                     : 'border-gray-700 bg-gray-800 hover:bg-gray-700'
                 }`}
               >
-                <p className="font-medium">{user?.name || uid}</p>
-                <p className="text-sm text-gray-400">{uid.toUpperCase()}</p>
+                <p className="font-medium text-theme-ink">{user?.name || uid}</p>
+                <p className="text-sm text-theme-ink-secondary">{uid.toUpperCase()}</p>
               </div>
             );
           })}

@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+    --color-theme: #101828;
+    --color-theme-secondary: var(--color-gray-800);
+    --color-theme-tertiary: var(--color-gray-700);
+    --color-theme-ink: white;
+    --color-theme-ink-secondary: var(--color-gray-300);
+    --color-theme-ink-tertiary: var(--color-gray-400);
+}
+
+body {
+  background-color: #ccf;
+  /* background-image: linear-gradient(navy, black); */
+}
+
+.stroked-font {
+  color: white;
+  /* -webkit-text-stroke: 1px black; */
+  text-shadow:
+    -1px -1px 0 black,
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+}

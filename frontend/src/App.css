@@ -5,10 +5,7 @@
   text-align: center;
 }
 
-body {
-  background-color: #ccf;
-  background-image: url('/frontend/public/hostel-bg.jpeg');
-}
+
 
 .logo {
   height: 6em;

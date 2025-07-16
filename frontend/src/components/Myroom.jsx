@@ -92,15 +92,31 @@ export default function Myroom() {
             <p className="text-sm text-gray-300">No one knocking yet 🚪</p>
           ) : (
             <div className="flex flex-wrap gap-2">
-              {userData.incommingRequests.map((id, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 text-sm bg-gray-700 text-white rounded-full border border-blue-500"
-                >
-                  {id}
-                </span>
-              ))}
+              {userData.incommingRequests.map((id, idx) => {
+                if (idx < 3) {
+                  return (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-sm bg-gray-700 text-white rounded-full border border-blue-500"
+                    >
+                      {id.toUpperCase()}
+                    </span>
+                  );
+                } else if (idx === 3) {
+                  return (
+                    <span
+                      key="more"
+                      className="px-3 py-1 text-sm bg-gray-700 text-white rounded-full border border-blue-500"
+                    >
+                      ...
+                    </span>
+                  );
+                } else {
+                  return null; 
+                }
+              })}
             </div>
+
           )}
         </div>
 
