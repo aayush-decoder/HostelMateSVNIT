@@ -8,7 +8,7 @@ export default function IncomingRequests() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await fetch('http://localhost:8001/incoming-requests', {
+        const res = await fetch('http://localhost:8000/incoming-requests', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

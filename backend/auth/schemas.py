@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class update_user(BaseModel):
     room_id: str
-    contact_number:str
+    contact_number:Optional[str]
     hostel:str
 
 class UserResponse(BaseModel):
@@ -14,7 +14,7 @@ class UserResponse(BaseModel):
     contactNumber:str
     room_mate:str
     name:str
-    requestedRoom: Optional[str] = ""
+    requestedRooms: List[Optional[dict]]
     incommingRequests: Optional[List[str]] = []
 
 class Token(BaseModel):

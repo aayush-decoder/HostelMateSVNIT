@@ -8,6 +8,7 @@ import IncomingRequests from './featurePopups/IncomingRequests';
 import RequestExchange from './featurePopups/SendRequest';
 import Myroom from './components/Myroom';
 import LoadingSpinner from "./components/LoadingSpinner"
+
 function App() {
   const [user, setUser] = useState(null);
   const [appToken, setAppToken] = useState(null);
@@ -48,7 +49,7 @@ function App() {
       const firebaseUser = result.user;
       const idToken = await firebaseUser.getIdToken();
 
-      const res = await fetch("http://localhost:8001/login", {
+      const res = await fetch("http://localhost:8000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken }),
@@ -84,6 +85,8 @@ function App() {
     <>
       <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
       <Myroom/>
+     
+      
       <div style={{ textAlign: "center", marginTop: "5rem" }}>
 
         <IncomingRequests />
@@ -91,6 +94,7 @@ function App() {
         <RequestExchange />
 
         <h1>Roomie Login</h1>
+      
 
         {user ? (
           <>

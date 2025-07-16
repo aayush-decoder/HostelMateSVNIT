@@ -1,11 +1,11 @@
 from fastapi import  Depends ,APIRouter, Request, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional,Literal
 import db as mydb
 from firebase_admin import firestore 
 from firebase_admin import auth as firebase_auth
-
+from .helper import parse_user_from_id
 from auth.schemas import update_user, UserResponse
 from auth.jwt_config import create_access_token, get_current_user
 from .check_room import check_room_data, check_room_status
@@ -50,7 +50,7 @@ async def token(request: Request):
                 "admissionNumber": uid,
                 "roomId": "not_updated",
                 "contactNumber": "",
-                "requestedRoom": "",
+                "requestedRooms": [],
                 "incoming_requests": [],
                 "name": username,
                 "hostel":""
@@ -81,7 +81,7 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
 
     if his_room.get().exists and target_user_id!=current_user["uid"]:
         room_details=his_room.get().to_dict()
-        current_user["requestedRoom"]=room_details["roomId"]
+        current_user["requestedRooms"].append({"uid":target_user_id,"roomId":room_details["roomId"]})
         my_data.update(
             current_user
         )
@@ -151,7 +151,7 @@ def read_users_me(current_user: dict = Depends(get_current_user)):
     return UserResponse(**current_user)
 
 
-@router.post("/update_room_details/{room_no}")
+@router.post("/update_room_details")
 def update_room_details(details:update_user,current_user:dict=Depends(get_current_user)):
     # this checks both things that if room exists and number of occupants
     room_status=check_room_status(db,details.room_id.upper())
@@ -167,6 +167,7 @@ def update_room_details(details:update_user,current_user:dict=Depends(get_curren
         user_ref=db.collection("users").document(current_user["uid"])
         user_ref.update(current_user)
         room_ref.update(room)
+        return({"message":"success"})
     elif (room_status<0):
         return {"message","under_maintinance"}
     else:
@@ -196,3 +197,24 @@ def get_room_details(branch_name: str):
 
     return users_data
 
+@router.get("/room_by_id/{hostel}/{room_id}")
+def get_room_by_id(room_id:str,hostel:Literal["swami","nehru","mtb"]):
+    room_data={"error":"room does not exist"}
+    if (hostel!="mtb"):
+        lookup="boysHostelLookup"
+    else:
+        lookup="girlsHostelLookup"
+    room_ref=db.collection(lookup).document(room_id.upper())
+    if room_ref.get().exists:
+        room_data=room_ref.get().to_dict()
+        mem_array=room_data["members"]
+        count =room_data["count"]
+        if count<0:
+            return {"error":"room under maintainance"}
+        elif count==0:
+            return {"error":"sorry we dont have the data!"}
+        else:
+            room_data={}
+        for i,mem in enumerate(mem_array):
+            room_data[i]=parse_user_from_id(db,mem)
+        return room_data

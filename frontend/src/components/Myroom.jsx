@@ -60,7 +60,15 @@ export default function Myroom() {
         </div>
         <div>
           <h4 className="font-semibold text-sm text-gray-500">Requested Room</h4>
-          <p className="text-lg">{userData.requestedRoom || "None"}</p>
+            {userData.requestedRooms.length > 0 ? (
+              userData.requestedRooms.map((e, idx) => (
+                <p key={idx} className="text-lg text-black">
+                  {e.roomId}
+                </p>
+              ))
+            ) : (
+              <p>None</p>
+            )}
         </div>
       </div>
       <div className="mt-6 grid grid-cols-2 gap-4">
