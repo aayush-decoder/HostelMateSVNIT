@@ -17,6 +17,21 @@ db = firestore.client()
 # EMAIL_REGEX = r"^[ui]24[a-z]{2}\d{3}@[a-z]+\.svnit\.in$"
 
 
+
+class User(BaseModel):
+    name: str
+    email: EmailStr
+    age: Optional[int] = None
+
+
+@router.get("/users/{user_id}")
+async def get_user(user_id: str):
+    user = mydb.get_user_by_id(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+
 @router.post("/login")
 async def token(request: Request):
     body = await request.json()
@@ -57,17 +72,21 @@ async def update_contact(contact_num:str,current_user:dict=Depends(get_current_u
         "contactNumber":contact_num
     })
 
+
 @router.post("/request_exchange/{target_user_id}")
-async def request_exchange(target_user_id:str,current_user:dict=Depends(get_current_user)):
+async def request_exchange(target_user_id:str, current_user: dict=Depends(get_current_user)):
+
     my_data=db.collection("users").document(current_user["uid"])
     his_room=db.collection("users").document(target_user_id)
+
     if his_room.get().exists and target_user_id!=current_user["uid"]:
         room_details=his_room.get().to_dict()
         current_user["requestedRoom"]=room_details["roomId"]
         my_data.update(
             current_user
         )
-        room_details["incommingRequests"].append()
+        room_details.setdefault("incomingRequests", []).append(current_user["uid"])
+
         his_room.update(
             room_details
         )
@@ -76,12 +95,13 @@ async def request_exchange(target_user_id:str,current_user:dict=Depends(get_curr
         raise HTTPException(status_code=404, detail="room not found")
 
 
-# @router.delete("/{user_id}")
-# async def delete_user(user_id: str):
-#     if not mydb.get_user_by_id(user_id):
-#         raise HTTPException(status_code=404, detail="User not found")
-#     mydb.delete_user(user_id)
-#     return {"message": "User deleted"}
+
+@router.delete("users/{user_id}")
+async def delete_user(user_id: str):
+    if not mydb.get_user_by_id(user_id):
+        raise HTTPException(status_code=404, detail="User not found")
+    mydb.delete_user(user_id)
+    return {"message": "User deleted"}
 
 @router.get("/incoming-requests")
 async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
