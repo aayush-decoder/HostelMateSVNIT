@@ -63,7 +63,7 @@ export default function Myroom() {
           <p className="text-lg">{userData.requestedRoom || "None"}</p>
         </div>
       </div>
-      <div className="mt-6 flex flex-row justify-between">
+      <div className="mt-6 grid grid-cols-2 gap-4">
         <div>
             <h4 className="font-semibold text-sm text-gray-500 mb-2">Incoming Requests</h4>
             {userData.incommingRequests.length === 0 ? (
