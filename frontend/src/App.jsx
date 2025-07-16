@@ -9,6 +9,7 @@ import RoomSetupModal from "./featurePopups/UpdateDetailsPopup";
 import LoginContext from './context/logincontext';
 import OutgoinRequests from './featurePopups/OutgoinRequests';
 import { gsap } from "gsap";
+import HostelMatrix from './roomMatrix/SwamiMatrix';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -96,6 +97,8 @@ export default function App() {
   return (
     <>
       <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
+
+      <HostelMatrix />
 
       {/* dark mode: bg-gray-950 text-white */}
       <div
