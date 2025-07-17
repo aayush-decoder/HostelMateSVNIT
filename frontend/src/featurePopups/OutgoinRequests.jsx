@@ -57,7 +57,7 @@ function OutgoinRequests() {
 
   const delete_request=(uid)=>{
     try {
-        fetch(`http://localhost:8000/delete_outgoing_requests/${uid}`,{
+        fetch(`https://hostelmate-nqe3.onrender.com/delete_outgoing_requests/${uid}`,{
         method:"delete",
         headers: {
                 Authorization: `Bearer ${token}`,

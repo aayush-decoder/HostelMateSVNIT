@@ -1,6 +1,5 @@
 import React, { useEffect, useState,useContext } from 'react';
 import LoginContext from '../context/logincontext';
-import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
 export default function RequestExchange() {
