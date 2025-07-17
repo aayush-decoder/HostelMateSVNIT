@@ -8,5 +8,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server:{allowedHosts:true}
+  server:{allowedHosts:true},
+  base: process.env.VITE_BASE_PATH || "/",
 })

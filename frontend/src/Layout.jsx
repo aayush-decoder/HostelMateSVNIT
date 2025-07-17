@@ -13,6 +13,8 @@ import { gsap } from "gsap";
 import HostelMatrix from './roomMatrix/SwamiMatrix';
 import App from './App';
 
+import Swal from 'sweetalert2';
+
 
 export default function Layout() {
   const [user, setUser] = useState(null);
@@ -28,7 +30,7 @@ export default function Layout() {
     const name = localStorage.getItem("name");
 
     if (token && email) {
-      fetch("http://localhost:8000/me", {
+      fetch("https://hostelmate-nqe3.onrender.com/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +56,7 @@ export default function Layout() {
       const firebaseUser = result.user;
       const idToken = await firebaseUser.getIdToken();
 
-      const res = await fetch("http://localhost:8000/login", {
+      const res = await fetch("https://hostelmate-nqe3.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken }),
@@ -73,7 +75,20 @@ export default function Layout() {
       }
     } catch (err) {
       console.error(err);
-      alert("Login error");
+      Swal.fire({
+                icon: 'error',
+                title: 'Oops! That login attempt didn’t vibe 💥',
+                text: 'Make sure you used Institute email id to Log in ✨',
+                confirmButtonText: 'Let me try again 🔁',
+                customClass: {
+                  popup: 'rounded-2xl shadow-lg',
+                  confirmButton: 'bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md',
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  handleLogin();
+                }
+              });;
     }
   };
 

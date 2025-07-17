@@ -20,7 +20,7 @@ function Updatedetails() {
     admissionNumber: "",
   });
   const fetch_data=()=>{
-  fetch("http://localhost:8000/me", {
+  fetch("https://hostelmate-nqe3.onrender.com/me", {
       method: "GET",
       headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function Updatedetails() {
   
   const onSubmit = () => {
     setLoading(true);
-    fetch("http://localhost:8000/update_room_details", {
+    fetch("https://hostelmate-nqe3.onrender.com/update_room_details", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

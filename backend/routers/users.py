@@ -9,9 +9,12 @@ from .helper import parse_user_from_id,fetch_all_users
 from auth.schemas import update_user, UserResponse
 from auth.jwt_config import create_access_token, get_current_user
 from .check_room import check_room_data, check_room_status
+import re
 
 router = APIRouter(tags=["Users"])
 db = firestore.client()  
+
+pattern = r'^[uiUI]\d{2}[a-zA-Z]{2}\d{3}$'
 
 # auth/routes.py
 # EMAIL_REGEX = r"^[ui]24[a-z]{2}\d{3}@[a-z]+\.svnit\.in$"
@@ -43,6 +46,10 @@ async def token(request: Request):
         decoded = firebase_auth.verify_id_token(id_token)
         email = decoded.get("email")
         uid = email.split("@")[0].lower()
+
+        if (bool(re.match(pattern, uid))):
+            raise HTTPException(status_code=403, detail="Not Valid Email")
+
         username = decoded.get("name")
 
         if not check_room_data(db, uid):

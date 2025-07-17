@@ -1,5 +1,8 @@
 import React, { useEffect, useState,useContext } from 'react';
 import LoginContext from '../context/logincontext';
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+
 export default function RequestExchange() {
   const [roomId, setRoomId] = useState('');
   const [members, setMembers] = useState([]);
@@ -8,8 +11,27 @@ export default function RequestExchange() {
   const [userInfoMap, setUserInfoMap] = useState({});
   const [loading, setLoading] = useState(false);
   const login_info=useContext(LoginContext);
+  const [isMTBian, setIsMTBian] = useState(true);
+  
 
   const token = localStorage.getItem('token');
+  const currentUser = localStorage.getItem('uid');
+
+
+  useEffect(() => {
+  
+    fetch(`https://hostelmate-nqe3.onrender.com/users/${currentUser}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.hostel === 'swami') {
+          setIsMTBian(false);
+        } else {
+          setIsMTBian(true);
+        }
+      })
+      .catch(err => console.error('Error fetching user:', err));
+  }, []);
+  
 
   const handleRoomChange = async (e) => {
     const value = e.target.value.toUpperCase();
@@ -17,16 +39,28 @@ export default function RequestExchange() {
     setMembers([]);
     setSelected([]);
     setUserInfoMap({});
-    setWarning('');
+    setWarning('For MTB, please add \'M\' prefix before room number');
 
-    if (!value || !/^[ABC]\d{3}$/i.test(value)) {
+    if (currentUser != "u24ai091" || currentUser != "i24ai029") {
+      if ((isMTBian == false || currentUser == null )) {
+        if (value[0] == 'M' && value.length == 4) {
+          alert("You can't see MTB details untill you are a girl 💅. If you are a girl, please log in to see your room mates. 😊");
+          console.loh(6)
+          return;
+        }
+      }
+    }
+    console.log(isMTBian, currentUser);
+    
+
+    if (!value || !/^[ABCM]\d{3}$/i.test(value)) {
       setWarning("Please enter a valid room ID like 'A302'.");
       return;
     }
 
     setLoading(true);
     try {
-      const statusRes = await fetch(`http://localhost:8000/check_status/${value}`);
+      const statusRes = await fetch(`https://hostelmate-nqe3.onrender.com/check_status/${value}`);
       if (!statusRes.ok) throw new Error("Failed to check room status");
       const { status } = await statusRes.json();
 
@@ -35,7 +69,7 @@ export default function RequestExchange() {
         return;
       }
 
-      const membersRes = await fetch(`http://localhost:8000/room_members/${value}`);
+      const membersRes = await fetch(`https://hostelmate-nqe3.onrender.com/room_members/${value}`);
       if (!membersRes.ok) throw new Error("Room not found or invalid");
       const { members: uids } = await membersRes.json();
 
@@ -47,7 +81,7 @@ export default function RequestExchange() {
       setMembers(uids);
 
       const userFetches = uids.map((uid) =>
-        fetch(`http://localhost:8000/users/${uid}`, {
+        fetch(`https://hostelmate-nqe3.onrender.com/users/${uid}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => res.ok ? res.json() : null)
       );
@@ -74,11 +108,28 @@ export default function RequestExchange() {
   };
 
   const sendRequest = async () => {
-    if (selected.length === 0) return alert("Select at least one roommate");
+    if (selected.length === 0) 
+      return Swal.fire({
+        icon: 'warning',
+        title: 'Oops! No Roomie Selected 🫢',
+        text: 'Pick at least one person to exchange room with before sending request 🚀',
+        confirmButtonText: 'Gotcha! ✌️',
+        background: '#f8fafc', // Light slate-50 (Tailwind light mode)
+        color: '#334155', // Slate-700 for dark text
+        customClass: {
+          popup: 'rounded-2xl shadow-xl',
+          confirmButton: 'bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold',
+        },
+        backdrop: `
+          rgba(255, 255, 255, 0.6)
+          left top
+          no-repeat
+        `
+      });;
 
     try {
       for (const uid of selected) {
-        const res = await fetch(`http://localhost:8000/request_exchange/${uid}`, {
+        const res = await fetch(`https://hostelmate-nqe3.onrender.com/request_exchange/${uid}`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,7 +160,7 @@ export default function RequestExchange() {
 
       <input
         type="text"
-        placeholder="Enter room ID (e.g., B302)"
+        placeholder="Enter roomID [eg B302, 458, M213]"
         value={roomId}
         onChange={handleRoomChange}
         className="w-full p-2 mb-4 bg-theme border border-gray-700 rounded-md text-theme-ink focus:outline-none"
