@@ -64,21 +64,22 @@ function OutgoinRequests() {
   <div className="mt-2 text-center">
     <h1 className="text-2xl font-bold mb-4 text-white">Outgoing Requests</h1>
     <div className="flex flex-row flex-wrap justify-center w-full items-center gap-4">
+
         {requestedUser.map((e, idx) => (
         <div
             key={idx}
-            className="p-4 border-2 grow border-white rounded-xl shadow-md bg-white"
+            className="p-4 border-2 grow border-gray-700 rounded-xl shadow-md bg-theme-secondary"
         >
-            <h3 className="text-lg font-semibold bg-cyan-800 text-white px-3 py-1 rounded">
+            <h3 className="text-lg font-semibold bg-cyan-800 text-theme-ink px-3 py-1 rounded">
             Room ID: {e.roomId}
             </h3>
-            <p className="mt-2 text-gray-800">
+            <p className="mt-2 text-theme-ink-secondary">
             <span className="font-semibold">Name:</span> {e.name}
             </p>
-            <p className="text-gray-800">
+            <p className="text-theme-ink-secondary">
             <span className="font-semibold">Roll No:</span> {e.admissionNumber}
             </p>
-            <p className="text-gray-800">
+            <p className="text-theme-ink-secondary">
             <span className="font-semibold">Contact Number:</span>{" "}
             {e.contactNumber ? e.contactNumber : "Not updated"}
             </p>

@@ -6,7 +6,7 @@ initialize_app(cred)
 db = firestore.client()
 
 
-with open("test/roommates_new.json") as f:
+with open("test/roommates.json") as f:
     room_data = json.load(f)
 
 

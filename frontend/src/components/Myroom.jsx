@@ -1,7 +1,9 @@
+// Same imports...
 import React, { useContext, useEffect, useState, useRef } from "react";
 import LoginContext from "../context/logincontext";
 import LoadingSpinner from "./LoadingSpinner";
 import { gsap } from "gsap";
+import RoomChip from "./ui/RoomChip";
 
 export default function Myroom() {
   const [userData, setUserData] = useState(null);
@@ -39,9 +41,9 @@ export default function Myroom() {
 
   if (loading) return <LoadingSpinner />;
 
-  if (login_info.login === false || userData === null) {
+  if (!login_info.login || !userData) {
     return (
-      <div className="text-white py-2 my-4 bg-red-600 rounded-2xl text-2xl text-center">
+      <div className="text-white py-2 my-4 bg-red-600 rounded-2xl text-xl text-center">
         🚫 Please login to view your room info!
       </div>
     );
@@ -50,14 +52,15 @@ export default function Myroom() {
   return (
     <div
       ref={boxRef}
-      className="max-w-3xl mx-auto mt-8 bg-gray-900 text-white shadow-2xl rounded-2xl p-6 border border-gray-800"
+      className="max-w-3xl mx-auto mt-6 bg-gray-900 text-white shadow-2xl rounded-2xl p-6 border border-gray-800"
     >
-      <div className="flex items-center space-x-4">
+      {/* Header */}
+      <div className="flex items-center gap-4 flex-wrap mb-4">
         <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white text-xl font-bold">
           {userData.name.slice(0, 2).toUpperCase()}
         </div>
-        <div>
-          <h2 className="text-2xl font-semibold">{userData.name}</h2>
+        <div className="flex-1 min-w-[200px]">
+          <h2 className="text-xl font-semibold">{userData.name}</h2>
           <p className="text-sm text-gray-400">
             🎓 Admission No: <span className="text-white">{userData.admissionNumber}</span>
           </p>
@@ -74,27 +77,30 @@ export default function Myroom() {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-6">
-        <div className="bg-gray-800 p-4 rounded-xl shadow-inner">
+      {/* Room Info */}
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-gray-800 p-4 rounded-xl">
           <h4 className="font-semibold text-sm text-gray-400 mb-1">🏠 Current Room</h4>
-          <p className="text-xl">{userData.hostel} {userData.roomId}</p>
+          <p className="text-lg capitalize">{userData.hostel} {userData.roomId}</p>
         </div>
-        <div>
-          <h4 className="font-semibold text-sm text-gray-500">Requested Room</h4>
+
+        <div className="bg-gray-800 p-4 rounded-xl">
+          <h4 className="font-semibold text-sm text-gray-400 mb-2">✉️ Requested Rooms</h4>
+          <div className="flex flex-wrap gap-2">
             {userData.requestedRooms.length > 0 ? (
               userData.requestedRooms.map((e, idx) => (
-                <p key={idx} className="text-lg">
-                  {e.roomId}
-                </p>
+                <RoomChip key={idx} roomId={e.roomId} hostel={userData.hostel} />
               ))
             ) : (
-              <p>None</p>
+              <p className="text-sm text-gray-300">None</p>
             )}
+          </div>
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-6">
-        <div className="bg-gray-800 p-4 rounded-xl shadow-inner">
+      {/* Requests and Roommate */}
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-gray-800 p-4 rounded-xl">
           <h4 className="font-semibold text-sm text-gray-400 mb-2">📥 Incoming Requests</h4>
           {userData.incommingRequests.length === 0 ? (
             <p className="text-sm text-gray-300">No one knocking yet 🚪</p>
@@ -105,7 +111,7 @@ export default function Myroom() {
                   return (
                     <span
                       key={idx}
-                      className="px-3 py-1 text-sm bg-gray-700 text-white rounded-full border border-blue-500"
+                      className="px-2 py-1 text-sm bg-gray-700 text-white rounded-full border border-blue-500"
                     >
                       {id.toUpperCase()}
                     </span>
@@ -119,16 +125,13 @@ export default function Myroom() {
                       ...
                     </span>
                   );
-                } else {
-                  return null; 
-                }
+                } else return null;
               })}
             </div>
-
           )}
         </div>
 
-        <div className="bg-gray-800 p-4 rounded-xl shadow-inner">
+        <div className="bg-gray-800 p-4 rounded-xl">
           <h4 className="font-semibold text-sm text-gray-400 mb-2">🧑‍🤝‍🧑 Roommate</h4>
           <p className="text-base text-white">
             {userData.room_mate || "Living solo for now 🧘‍♂️"}
