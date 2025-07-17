@@ -82,6 +82,12 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
     if his_room.get().exists and target_user_id!=current_user["uid"]:
         room_details=his_room.get().to_dict()
         current_user["requestedRooms"].append({"uid":target_user_id,"roomId":room_details["roomId"]})
+
+        #fix for mtb as well
+        if("M" in current_user["roomId"]):
+            if("M" not in room_details["roomId"]):
+                return {"message":"only girls allowed!!!"}
+        
         
         # update request in new lookup as well
         req_ref=db.collection(seperate_endpoint).document("swami")

@@ -34,6 +34,7 @@ export default function HostelMatrix() {
   const [incoming, setIncoming] = useState([]);
   const [Swami, setSwami] = useState({});
   const [Swamisquare, setSwamisquare] = useState({});
+  const [Motherteresadata, setmotherteresadata] = useState({});
   const [branchRooms, setBranchRooms] = useState({});
   const [mode, setMode] = useState(MODE.STATUS);
   const [loading, setLoading] = useState(true);
@@ -73,7 +74,14 @@ export default function HostelMatrix() {
       .then((data) => {
         setSwamisquare(data);
       });
+
+    fetch("/data/motherteresa.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setmotherteresadata(data);
+      });
     setLoading(false);
+
   }, []);
 
   if (loading || !Swami.A201 || !Swamisquare["55"] || !roomrequests) return <LoadingSpinner />;
@@ -253,12 +261,26 @@ export default function HostelMatrix() {
     },
   };
 
+  const mtb = {
+  "1st Floor": Array.from({ length: 99 }, (_, i) => `M${101 + i}`),
+  "2nd Floor": Array.from({ length: 99 }, (_, i) => `M${201 + i}`),
+  "3rd Floor": Array.from({ length: 99 }, (_, i) => `M${301 + i}`),
+  "4th Floor": Array.from({ length: 99 }, (_, i) => `M${401 + i}`),
+  "5th Floor": Array.from({ length: 99 }, (_, i) => `M${501 + i}`),
+  "6th Floor": Array.from({ length: 99 }, (_, i) => `M${601 + i}`),
+  "7th Floor": Array.from({ length: 99 }, (_, i) => `M${701 + i}`),
+  "8th Floor": Array.from({ length: 99 }, (_, i) => `M${801 + i}`),
+  };
+
   const renderRoom = (roomId) => {
     let database = Swami;
     if (hostel == "swami_fan_wing") {
       database = Swami;
     } else if (hostel == "swami_square_wing") {
       database = Swamisquare;
+    }
+    else if(hostel=="mother teresa bhavan"){
+      database=Motherteresadata;
     }
     const status = database[roomId] ? database[roomId].roommates.length : 0;
     const users = database[roomId] ? database[roomId].roommates : null; //now both room occupants
@@ -269,7 +291,7 @@ export default function HostelMatrix() {
     let tooltip = "";
 
     if (mode === MODE.REQUESTS) {
-   
+      
       if (requested && incomingReq) {
         bgClass = COLOR_MAP.both;
         tooltip = `🎉 Swapping Match! ${users[0]?.name || "Someone"} @ ${roomId}`;
@@ -385,15 +407,22 @@ export default function HostelMatrix() {
     );
   };
 
+  const rendermtb = () => {
+    return (
+      <div className="w-full">
+        <h2 className="text-white text-xl mb-4">🧿mother teresa bhavan</h2>
+        {Object.entries(mtb).map(([floor, rooms]) => (
+          <div key={floor}>
+            <h3 className="text-gray-300 font-medium mt-4">{floor}</h3>
+            <div className="flex flex-wrap">{rooms.map(renderRoom)}</div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="bg-gray-900 p-4 rounded-xl text-white shadow-xl">
-      <select name="" id="" default={"swami"} onChange={(e)=>{setHostelforquery(e.target.value)}}>
-        {["swami","motherteresa"].map((e,idx)=>{
-          return(
-            <option className="text-black" key={e} value={e}>{e}</option>
-          )
-        })}
-      </select>
       <div className="flex gap-4 mb-4">
         <button
           onClick={() => setMode(MODE.REQUESTS)}
@@ -445,10 +474,11 @@ export default function HostelMatrix() {
         id=""
         defaultValue={"swami_fan_wing"}
         onChange={(e) => {
-          setHostel(e.target.value);
+          let value=e.target.value
+          setHostel(value);
         }}
       >
-        {["swami_fan_wing", "swami_square_wing"].map((e, idx) => {
+        {["swami_fan_wing", "swami_square_wing","mother teresa bhavan"].map((e, idx) => {
           return (
             <option className="text-black" key={e} value={e}>
               {e}
@@ -458,6 +488,7 @@ export default function HostelMatrix() {
       </select>
       {hostel === "swami_fan_wing" ? renderFanWing() : null}
       {hostel === "swami_square_wing" ? renderSquareWing() : null}
+      {hostel === "mother teresa bhavan" ? rendermtb() : null}
     </div>
   );
 }
