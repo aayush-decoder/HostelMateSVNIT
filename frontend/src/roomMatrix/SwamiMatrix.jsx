@@ -41,7 +41,7 @@ export default function HostelMatrix() {
   const [branch, setBranch] = useState("AI");
   const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch("http://hostelmate-nqe3.onrender.com/me", {
+    fetch("https://hostelmate-nqe3.onrender.com/me", {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then(res => res.json())
@@ -55,7 +55,7 @@ export default function HostelMatrix() {
     });
 
     // fetch room  requests
-    fetch(`http://hostelmate-nqe3.onrender.com/all_room_requests/${hostelforquery}`, {
+    fetch(`https://hostelmate-nqe3.onrender.com/all_room_requests/${hostelforquery}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then(res => res.json())

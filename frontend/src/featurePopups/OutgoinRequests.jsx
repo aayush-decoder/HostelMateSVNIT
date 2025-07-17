@@ -13,7 +13,7 @@ function OutgoinRequests() {
     if(requestedUser.length>0) return ;
     const fetchRequests = async () => {
       try {
-        const res = await fetch("http://hostelmate-nqe3.onrender.com/me", {
+        const res = await fetch("https://hostelmate-nqe3.onrender.com/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -35,7 +35,7 @@ function OutgoinRequests() {
     const fetchusers = async (rooms) => {
        rooms.forEach(async (e) => {
         try {
-          const res =await fetch(`http://hostelmate-nqe3.onrender.com/users/${e.uid}`,
+          const res =await fetch(`https://hostelmate-nqe3.onrender.com/users/${e.uid}`,
           { method:"GET",
             headers: {
               Authorization: `Bearer ${token}`,

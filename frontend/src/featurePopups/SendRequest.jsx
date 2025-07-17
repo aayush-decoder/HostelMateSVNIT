@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export default function RequestExchange() {
   const [roomId, setRoomId] = useState('');
@@ -7,6 +8,7 @@ export default function RequestExchange() {
   const [warning, setWarning] = useState('');
   const [userInfoMap, setUserInfoMap] = useState({});
   const [loading, setLoading] = useState(false);
+  
 
   const token = localStorage.getItem('token');
 
@@ -25,7 +27,7 @@ export default function RequestExchange() {
 
     setLoading(true);
     try {
-      const statusRes = await fetch(`http://hostelmate-nqe3.onrender.com/check_status/${value}`);
+      const statusRes = await fetch(`https://hostelmate-nqe3.onrender.com/check_status/${value}`);
       if (!statusRes.ok) throw new Error("Failed to check room status");
       const { status } = await statusRes.json();
 
@@ -34,7 +36,7 @@ export default function RequestExchange() {
         return;
       }
 
-      const membersRes = await fetch(`http://hostelmate-nqe3.onrender.com/room_members/${value}`);
+      const membersRes = await fetch(`https://hostelmate-nqe3.onrender.com/room_members/${value}`);
       if (!membersRes.ok) throw new Error("Room not found or invalid");
       const { members: uids } = await membersRes.json();
 
@@ -46,7 +48,7 @@ export default function RequestExchange() {
       setMembers(uids);
 
       const userFetches = uids.map((uid) =>
-        fetch(`http://hostelmate-nqe3.onrender.com/users/${uid}`, {
+        fetch(`https://hostelmate-nqe3.onrender.com/users/${uid}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => res.ok ? res.json() : null)
       );
@@ -73,11 +75,28 @@ export default function RequestExchange() {
   };
 
   const sendRequest = async () => {
-    if (selected.length === 0) return alert("Select at least one roommate");
+    if (selected.length === 0) 
+      return Swal.fire({
+        icon: 'warning',
+        title: 'Oops! No Roomie Selected 🫢',
+        text: 'Pick at least one person to exchange room with before sending request 🚀',
+        confirmButtonText: 'Gotcha! ✌️',
+        background: '#f8fafc', // Light slate-50 (Tailwind light mode)
+        color: '#334155', // Slate-700 for dark text
+        customClass: {
+          popup: 'rounded-2xl shadow-xl',
+          confirmButton: 'bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold',
+        },
+        backdrop: `
+          rgba(255, 255, 255, 0.6)
+          left top
+          no-repeat
+        `
+      });;
 
     try {
       for (const uid of selected) {
-        const res = await fetch(`http://hostelmate-nqe3.onrender.com/request_exchange/${uid}`, {
+        const res = await fetch(`https://hostelmate-nqe3.onrender.com/request_exchange/${uid}`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,

@@ -14,7 +14,7 @@ export default function Myroom() {
 
   useEffect(() => {
     if (login_info.login === true && token) {
-      fetch("http://hostelmate-nqe3.onrender.com/me", {
+      fetch("https://hostelmate-nqe3.onrender.com/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -32,7 +32,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch(`http://hostelmate-nqe3.onrender.com/users/${uid}`, {
+        const res = await fetch(`https://hostelmate-nqe3.onrender.com/users/${uid}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Couldn't fetch user");
@@ -58,7 +58,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
     setError("");
 
     try {
-      const res = await fetch(`http://hostelmate-nqe3.onrender.com/update_room_details/${roomId}`, {
+      const res = await fetch(`https://hostelmate-nqe3.onrender.com/update_room_details/${roomId}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

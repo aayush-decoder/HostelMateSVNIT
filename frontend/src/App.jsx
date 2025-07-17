@@ -9,6 +9,8 @@ import RoomSetupModal from "./featurePopups/UpdateDetailsPopup";
 import LoginContext from './context/logincontext';
 import OutgoinRequests from './featurePopups/OutgoinRequests';
 
+import Swal from 'sweetalert2';
+
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -34,7 +36,7 @@ export default function App() {
     const name = localStorage.getItem("name");
 
     if (token && email) {
-      fetch("http://hostelmate-nqe3.onrender.com/me", {
+      fetch("https://hostelmate-nqe3.onrender.com/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +62,7 @@ export default function App() {
       const firebaseUser = result.user;
       const idToken = await firebaseUser.getIdToken();
 
-      const res = await fetch("http://hostelmate-nqe3.onrender.com/login", {
+      const res = await fetch("https://hostelmate-nqe3.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken }),
@@ -75,11 +77,37 @@ export default function App() {
         login_context.setLogin(true);
         setAppToken(data.access_token);
       } else {
-        alert("Login failed. " + (data.detail || ""));
+        // alert("Login failed. " + (data.detail || ""));
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops! That login attempt didn’t vibe 💥',
+          text: data.detail || 'Something went wrong while trying to let you in. Try again, maybe with a magic touch ✨',
+          confirmButtonText: 'Let me try again 🔁',
+          background: '#1e1e1e',
+          color: '#eee',
+          customClass: {
+            popup: 'rounded-2xl shadow-lg',
+            confirmButton: 'bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md',
+          }
+        });
+
       }
     } catch (err) {
       console.error(err);
-      alert("Login error");
+      // alert("Login error");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops! That login attempt didn’t vibe 💥',
+        text: data.detail || 'Something went wrong while trying to let you in. Try again, maybe with a magic touch ✨',
+        confirmButtonText: 'Let me try again 🔁',
+        background: '#1e1e1e',
+        color: '#eee',
+        customClass: {
+          popup: 'rounded-2xl shadow-lg',
+          confirmButton: 'bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md',
+        }
+      });
     }
   };
 
