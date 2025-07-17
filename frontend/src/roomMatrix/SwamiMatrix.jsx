@@ -387,6 +387,13 @@ export default function HostelMatrix() {
 
   return (
     <div className="bg-gray-900 p-4 rounded-xl text-white shadow-xl">
+      <select name="" id="" default={"swami"} onChange={(e)=>{setHostelforquery(e.target.value)}}>
+        {["swami","motherteresa"].map((e,idx)=>{
+          return(
+            <option className="text-black" key={e} value={e}>{e}</option>
+          )
+        })}
+      </select>
       <div className="flex gap-4 mb-4">
         <button
           onClick={() => setMode(MODE.REQUESTS)}
