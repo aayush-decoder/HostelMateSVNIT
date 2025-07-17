@@ -12,13 +12,13 @@ export default function Navbar({ user, handleLogin, handleLogout }) {
     <nav className="bg-gray-900 text-white px-6 py-4 shadow-md">
       <div className="w-full mx-auto flex items-center justify-between">
         
-        <div className="text-xl font-bold">Hostelmate - SVNIT</div>
+        <div className="text-xl font-bold"><a href="/">Hostelmate - SVNIT</a></div>
 
         {/* Desktop */}
         <div className="hidden md:flex gap-9 items-center">
           <a href="#blogs" className="hover:text-blue-400 transition">Incoming Request</a>
           <a href="#serve" className="hover:text-blue-400 transition">Contribute data</a>
-          <a href="#contacts" className="hover:text-blue-400 transition mr-3">Room Matrix</a>
+          <a href="/room-matrix" className="hover:text-blue-400 transition mr-3">Room Matrix</a>
 
           {user ? (
             <div className="flex items-center gap-3">
