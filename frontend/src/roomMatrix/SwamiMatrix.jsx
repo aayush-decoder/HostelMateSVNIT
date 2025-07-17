@@ -2,11 +2,12 @@
 import { useEffect, useState } from "react";
 import { Tooltip } from "@mui/material";
 import gsap from "gsap";
+import { orange } from "@mui/material/colors";
 
 const MODE = {
   REQUESTS: 1,
   STATUS: 2,
-  FUTURE: 3,
+  BRANCH: 3,
 };
 
 const COLOR_MAP = {
@@ -17,19 +18,25 @@ const COLOR_MAP = {
   status1: "bg-orange-400",
   statusNeg1: "bg-purple-500",
   status0: "bg-gray-400",
+  same_branch_1:"bg-blue-400",
+  same_branch_2:"bg-blue-700",
 };
 
 
 
 export default function HostelMatrix() {
+  const branch_array=["AI","CSE","ME","ECE"] // ayush bhai please add more
+
   const [requests, setRequests] = useState([]);
   const [incoming, setIncoming] = useState([]);
   const [roomStatuses, setRoomStatuses] = useState({});
   const [roomUsers, setRoomUsers] = useState({});
+  const [branchRooms, setBranchRooms] = useState({}); 
   const [mode, setMode] = useState(MODE.REQUESTS);
-
-  useEffect(() => {
+  const [loading,setLoading] = useState(true);
+  const [branch,setBranch]=useState("AI");
   const token = localStorage.getItem("token");
+  useEffect(() => {
 
   fetch("http://localhost:8000/me", {
     headers: { Authorization: `Bearer ${token}` },
@@ -52,8 +59,31 @@ export default function HostelMatrix() {
     setRoomUsers(data.users);
   });
 
-}, []);
+}, []);     
+  // function to fetch data branch wise
 
+  const fetch_branch_wise=()=>{
+    setLoading(true);
+    console.log("fetching branch wise data")
+    fetch(`http://localhost:8000/room_details/${branch}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((users) => {
+        console.log("data recived")
+        const groupedRooms = {};
+        users.forEach((user) => {
+          const roomId = user.roomId;
+          if (!groupedRooms[roomId]) groupedRooms[roomId] = []; // {roomId:[users]}
+          groupedRooms[roomId].push(user);
+        });
+        setBranchRooms(groupedRooms);
+        setLoading(false);
+        setMode(MODE.BRANCH);
+      })
+      .catch(console.error);
+      setLoading(false);
+  }
 
   const fanWing = {
     "Ground Floor": ["55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68"],
@@ -117,7 +147,8 @@ export default function HostelMatrix() {
         bgClass = COLOR_MAP.incomingOnly;
         tooltip = `Incoming request from ${user?.name || "someone"}`;
       }
-    } else if (mode === MODE.STATUS) {
+    } 
+    else if (mode === MODE.STATUS) {
       if (status === 2) bgClass = COLOR_MAP.status2;
       else if (status === 1) bgClass = COLOR_MAP.status1;
       else if (status === -1) bgClass = COLOR_MAP.statusNeg1;
@@ -133,10 +164,19 @@ export default function HostelMatrix() {
         tooltip = "No Data Available. Please contribute if you know."
       }
     }
+    //mode = branch
+      else{
+        if(branchRooms.roomId.length==2)
+          { 
+            bgClass=COLOR_MAP.same_branch_2;
+            tooltip=`${branchRooms.roomId[0].name}-${branchRooms.roomId[0].admissionNumber} \n ${branchRooms.roomId[1].name}-${branchRooms.roomId[1].admissionNumber}`
+        }
+        else if (branchRooms.roomId.length==1) bgClass=COLOR_MAP.same_branch_1
+        
+      }
 
     return (
-        <>
-        
+      <>
       <Tooltip key={roomId} title={tooltip} arrow>
         <div className={`w-12 h-12 m-1 rounded-md text-xs flex items-center justify-center text-white ${bgClass}`}>{roomId}</div>
       </Tooltip>
@@ -188,7 +228,16 @@ export default function HostelMatrix() {
         <div className="flex gap-4 mb-4">
             <button onClick={() => setMode(MODE.REQUESTS)} className={`px-4 py-2 rounded ${mode === MODE.REQUESTS ? "bg-blue-600" : "bg-gray-700"}`}>Requests Mode</button>
             <button onClick={() => setMode(MODE.STATUS)} className={`px-4 py-2 rounded ${mode === MODE.STATUS ? "bg-green-600" : "bg-gray-700"}`}>Room Status Mode</button>
-            <button disabled className="px-4 py-2 rounded bg-gray-600 cursor-not-allowed opacity-50">Coming Soon</button>
+           
+            <div>
+              <select name="" id="" onChange={(e)=>{setBranch(e.target.value)}}>
+                {branch_array.map((e,idx)=>{
+                  return(<option className="text-black" key={idx} value={e}>{e}</option>)
+                  })}
+              </select>
+              <button onClick={() => {fetch_branch_wise()}} className={`px-4 py-2 rounded ${mode === MODE.BRANCH ?" bg-orange-400" : "bg-gray-700"}`}>Branch wise mode</button>
+            </div>
+            
         </div>
       {renderFanWing()}
       {renderSquareWing()}

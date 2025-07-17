@@ -10,6 +10,7 @@ function OutgoinRequests() {
   const [requestedUser, setRequestedUser] = useState([]);
   useEffect(() => {
     if (!login_info.login) return;
+    if(requestedUser.length>0) return ;
     const fetchRequests = async () => {
       try {
         const res = await fetch("http://localhost:8000/me", {
