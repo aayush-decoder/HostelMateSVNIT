@@ -9,6 +9,7 @@ from .helper import parse_user_from_id,fetch_all_users
 from auth.schemas import update_user, UserResponse
 from auth.jwt_config import create_access_token, get_current_user
 from .check_room import check_room_data, check_room_status
+import re
 
 router = APIRouter(tags=["Users"])
 db = firestore.client()  
