@@ -8,8 +8,6 @@ import Myroom from './components/Myroom';
 import RoomSetupModal from "./featurePopups/UpdateDetailsPopup";
 import LoginContext from './context/logincontext';
 import OutgoinRequests from './featurePopups/OutgoinRequests';
-import { gsap } from "gsap";
-import HostelMatrix from './roomMatrix/SwamiMatrix';
 
 
 export default function App() {
@@ -97,7 +95,7 @@ export default function App() {
 
   return (
     <>
-      <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
+      {/* <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} /> */}
       {/* dark mode: bg-gray-950 text-white */}
       <div
         ref={pageRef}
@@ -105,7 +103,6 @@ export default function App() {
         style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed" }}
       >
 
-      <HostelMatrix/>
       <Myroom />
 
         {/* <div className="text-center mb-6">
