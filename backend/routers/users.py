@@ -47,7 +47,7 @@ async def token(request: Request):
         email = decoded.get("email")
         uid = email.split("@")[0].lower()
 
-        if (bool(re.match(pattern, s))):
+        if (bool(re.match(pattern, uid))):
             raise HTTPException(status_code=403, detail="Not Valid Email")
 
         username = decoded.get("name")
