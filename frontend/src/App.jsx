@@ -102,7 +102,7 @@ export default function App() {
       <div
         ref={pageRef}
         className="px-4 py-8 min-h-screen bg-cover bg-center"
-        style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed", backgroundBlendMode: "multiply" }}
+        style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed" }}
       >
 
       <HostelMatrix/>
