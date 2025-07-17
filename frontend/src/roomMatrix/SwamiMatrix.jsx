@@ -36,7 +36,7 @@ export default function HostelMatrix() {
   const [Swamisquare, setSwamisquare] = useState({});
   const [Motherteresadata, setmotherteresadata] = useState({});
   const [branchRooms, setBranchRooms] = useState({});
-  const [mode, setMode] = useState(MODE.STATUS);
+  const [mode, setMode] = useState(MODE.REQUESTS);
   const [loading, setLoading] = useState(true);
   const [branch, setBranch] = useState("AI");
   const token = localStorage.getItem("token");

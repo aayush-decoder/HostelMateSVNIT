@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef,useContext } from "react";
 import { gsap } from "gsap";
-
+import LoginContext from "../context/logincontext";
 export default function RoomSetupModal({ isOpen, onClose }) {
   const [user, setUser] = useState({ name: "", uid: "" });
   const [roomId, setRoomId] = useState("");
@@ -9,6 +9,7 @@ export default function RoomSetupModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const modalRef = useRef(null);
+  const login_info=useContext(LoginContext);
 
   const token = localStorage.getItem("token");
   const uid = localStorage.getItem("email")?.split("@")[0].toLowerCase();
@@ -78,12 +79,14 @@ export default function RoomSetupModal({ isOpen, onClose }) {
       }
 
       alert("✅ Room info locked in!");
+      login_info.setRefresh((prev)=>(!prev))
       onClose();
     } catch (err) {
       console.error(err);
       setError("Oops! Something went wrong.");
     } finally {
       setLoading(false);
+
     }
   };
 

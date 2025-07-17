@@ -77,7 +77,7 @@ export default function Navbar({ user, handleLogin, handleLogout }) {
         <div className="md:hidden mt-4 px-4 space-y-3">
           <a href="#blogs" className="block hover:text-blue-400">Blogs</a>
           <a href="#serve" className="block hover:text-blue-400">Serve</a>
-          <a href="#contacts" className="block hover:text-blue-400">Contacts</a>
+          <a href="/room-matrix" className="block hover:text-blue-400">room matrix</a>
 
           {user ? (
             <div className="mt-2 border-t border-gray-700 pt-3">

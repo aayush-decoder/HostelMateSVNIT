@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState,useContext } from 'react';
+import LoginContext from '../context/logincontext';
 export default function RequestExchange() {
   const [roomId, setRoomId] = useState('');
   const [members, setMembers] = useState([]);
@@ -7,6 +7,7 @@ export default function RequestExchange() {
   const [warning, setWarning] = useState('');
   const [userInfoMap, setUserInfoMap] = useState({});
   const [loading, setLoading] = useState(false);
+  const login_info=useContext(LoginContext);
 
   const token = localStorage.getItem('token');
 
@@ -91,6 +92,7 @@ export default function RequestExchange() {
       }
 
       alert("Request(s) sent successfully!");
+      login_info.setRefresh((prev)=>(!prev))
       setRoomId('');
       setMembers([]);
       setSelected([]);

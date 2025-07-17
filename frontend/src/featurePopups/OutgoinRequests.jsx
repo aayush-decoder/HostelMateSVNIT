@@ -22,7 +22,6 @@ function OutgoinRequests() {
           throw new Error("Failed to fetch user data");
         }
         const data = await res.json();
-        console.log(data);
         setUserdata(data);
         fetchusers(data.requestedRooms);
       } catch (error) {
@@ -46,7 +45,6 @@ function OutgoinRequests() {
             
           }
           const data = await res.json();
-          console.log(data);
           setRequestedUser(prev => [...prev, data]);
         } catch (error) {
           console.error(error);
@@ -56,6 +54,22 @@ function OutgoinRequests() {
 
     fetchRequests();
   }, [login_info, token]);
+
+  const delete_request=(uid)=>{
+    try {
+        fetch(`http://localhost:8000/delete_outgoing_requests/${uid}`,{
+        method:"delete",
+        headers: {
+                Authorization: `Bearer ${token}`,
+              },
+      }).then(data=>(data.json()))
+      .then(data=>{if(data.success)window.alert("deletion sucessfull please reload");login_info.setRefresh((prev)=>(!prev))})
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
 
   if (!login_info.login) return;
   if (loading) return <LoadingSpinner />;
@@ -83,6 +97,9 @@ function OutgoinRequests() {
             <span className="font-semibold">Contact Number:</span>{" "}
             {e.contactNumber ? e.contactNumber : "Not updated"}
             </p>
+            <button className="bg-red-500 text-white p-2 rounded-lg" onClick={()=>{delete_request(e.admissionNumber)}}>
+                delete 
+            </button>
         </div>
         ))}
     </div>

@@ -7,7 +7,7 @@ from firebase_admin import firestore
 
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 4000
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")  
 

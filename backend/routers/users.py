@@ -51,7 +51,7 @@ async def token(request: Request):
                 "roomId": "not_updated",
                 "contactNumber": "",
                 "requestedRooms": [],
-                "incoming_requests": [],
+                "incomming_requests": [],
                 "name": username,
                 "hostel":""
             })
@@ -99,7 +99,7 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
         my_data.update(
             current_user
         )
-        room_details.setdefault("incomingRequests", []).append(current_user["uid"])
+        room_details.setdefault("incommingRequests", []).append(current_user["uid"])
 
         his_room.update(
             room_details
@@ -120,9 +120,8 @@ async def request_exchange(target_user_id:str, current_user: dict=Depends(get_cu
 
 @router.get("/incoming-requests")
 async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
-    print(current_user)
     incoming_uids = current_user.get("incommingRequests", [])
-    print(incoming_uids)
+
 
     if not incoming_uids:
         return []
@@ -144,8 +143,6 @@ async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
 
 @router.get("/me", response_model=UserResponse)
 def read_users_me(current_user: dict = Depends(get_current_user)):
-    #room mate logic
-    print("reached me")
     room_mate="no details found"
     if current_user["roomId"]!="":
         doc_ref = db.collection("boysHostelLookup").document(current_user["roomId"])
@@ -250,3 +247,48 @@ def all_room_requests(hostel_name:str):
         return data.to_dict()
     else:
         raise HTTPException(404,"no info found")
+    
+@router.delete("/delete_outgoing_requests/{uid}")
+def delete_request(uid:str,current_user:dict=Depends(get_current_user)):
+    # uid is of target room
+    # delete from his account
+    uid=uid.lower()
+    req_room_ref=db.collection("users").document(uid)
+    req_room=req_room_ref.get()
+    if req_room.exists:
+        req_room=req_room.to_dict()
+        room_no=req_room["roomId"]
+        try :
+            req_room["incommingRequests"].remove(current_user["uid"])
+            req_room_ref.update(req_room)
+
+            #update requests document
+
+        except:
+            #HTTPException(404,"requested room was not present")
+            pass
+
+        doc_ref=db.collection("requests").document("swami")
+        doc=doc_ref.get().to_dict()
+        if(doc[room_no])>0:
+            doc[room_no]-=1
+            doc_ref.update(doc)
+    else:
+        return HTTPException(404,"room not found")
+    
+    # delete from user account
+    index=[]
+    print(current_user["requestedRooms"])
+    for i in range (len(current_user["requestedRooms"])):
+        if uid == current_user["requestedRooms"][i]["uid"]:
+            index.append(i)
+    print(index)
+    if index:
+        for i in index:
+            current_user["requestedRooms"].pop(i)
+    user_ref=db.collection("users").document(current_user["uid"])
+    user_ref.update(current_user)
+    return {"success":"data deleted"}
+
+    
+
