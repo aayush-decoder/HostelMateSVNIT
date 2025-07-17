@@ -21,6 +21,7 @@ const COLOR_MAP = {
   status0: "bg-gray-400",
   same_branch_1: "bg-blue-400",
   same_branch_2: "bg-blue-700",
+
 };
 
 export default function HostelMatrix() {
@@ -28,6 +29,8 @@ export default function HostelMatrix() {
 
   const [requests, setRequests] = useState([]);
   const [hostel, setHostel] = useState("swami_fan_wing");
+  const [hostelforquery, setHostelforquery] = useState("swami");
+  const [roomrequests,setRoomrequests] =useState({})
   const [incoming, setIncoming] = useState([]);
   const [Swami, setSwami] = useState({});
   const [Swamisquare, setSwamisquare] = useState({});
@@ -37,7 +40,7 @@ export default function HostelMatrix() {
   const [branch, setBranch] = useState("AI");
   const token = localStorage.getItem("token");
   useEffect(() => {
-    /* fetch("http://localhost:8000/me", {
+    fetch("http://localhost:8000/me", {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then(res => res.json())
@@ -48,7 +51,15 @@ export default function HostelMatrix() {
     })
     .then(data => {
         setIncoming(data.incommingRequests.map(r => r.room_id));
-    }); */
+    });
+
+    // fetch room  requests
+    fetch(`http://localhost:8000/all_room_requests/${hostelforquery}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then(res => res.json())
+    .then(data =>{setRoomrequests(data)});
+   
 
     // Fetch room status for mode 2 (can be batched or paginated)
     fetch("/data/roommates.json")
@@ -65,7 +76,17 @@ export default function HostelMatrix() {
     setLoading(false);
   }, []);
 
-  if (loading || !Swami.A201 || !Swamisquare["55"]) return <LoadingSpinner />;
+  if (loading || !Swami.A201 || !Swamisquare["55"] || !roomrequests) return <LoadingSpinner />;
+  
+  const getIntensityColor = (count, max = 20) => {
+    const ratio = Math.min(count / max, 1);
+    if (count === 0) return "bg-gray-400";           // neutral low traffic
+    if (ratio < 0.25) return "bg-green-600";          // light usage
+    if (ratio < 0.5) return "bg-yellow-600";          // moderate
+    if (ratio < 0.75) return "bg-orange-600";         // high
+    return "bg-red-700";                              // very high
+  };
+
   const fanWing = {
     "Ground Floor": [
       "55",
@@ -248,16 +269,21 @@ export default function HostelMatrix() {
     let tooltip = "";
 
     if (mode === MODE.REQUESTS) {
+   
       if (requested && incomingReq) {
         bgClass = COLOR_MAP.both;
-        tooltip = `🎉 Swapping Match! ${user?.name || "Someone"} @ ${roomId}`;
+        tooltip = `🎉 Swapping Match! ${users[0]?.name || "Someone"} @ ${roomId}`;
       } else if (requested) {
         bgClass = COLOR_MAP.requestOnly;
         tooltip = `Requested ${roomId}`;
       } else if (incomingReq) {
         bgClass = COLOR_MAP.incomingOnly;
-        tooltip = `Incoming request from ${user?.name || "someone"}`;
+        tooltip = `Incoming request from ${users[0]?.name || "someone"}`;
+      } else if (roomrequests[roomId]){
+          bgClass=getIntensityColor(roomrequests[roomId]);
       }
+
+
     } else if (mode === MODE.STATUS) {
       if (status === 2) bgClass = COLOR_MAP.status2;
       else if (status === 1) bgClass = COLOR_MAP.status1;

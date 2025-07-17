@@ -36,11 +36,7 @@ def send_room_status(roomId: str):
 #     rooms = room_ref.stream()
 
 #     room_statuses = {}  # like {"C405": 2}
-<<<<<<< HEAD
 #     room_users = {}     # like {"C405": {name: "deje", admissionNumber: "U24AI091"}}
-=======
-#     room_users = {}     # like {"C405": {name: "dvewb", admissionNumber: "U24AI091"}}
->>>>>>> 0efe79c5284294c5015462b2945c5612594106bf
 
 #     for room in rooms:
 #         room_id = room.id

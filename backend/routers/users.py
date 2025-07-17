@@ -75,13 +75,21 @@ async def update_contact(contact_num:str,current_user:dict=Depends(get_current_u
 
 @router.post("/request_exchange/{target_user_id}")
 async def request_exchange(target_user_id:str, current_user: dict=Depends(get_current_user)):
-
+    seperate_endpoint="requests"
     my_data=db.collection("users").document(current_user["uid"])
     his_room=db.collection("users").document(target_user_id)
 
     if his_room.get().exists and target_user_id!=current_user["uid"]:
         room_details=his_room.get().to_dict()
         current_user["requestedRooms"].append({"uid":target_user_id,"roomId":room_details["roomId"]})
+        
+        # update request in new lookup as well
+        req_ref=db.collection(seperate_endpoint).document("swami")
+        req=req_ref.get().to_dict()
+        req.setdefault(room_details["roomId"],0)
+        req[room_details["roomId"]]+=1
+        req_ref.update(req)
+
         my_data.update(
             current_user
         )
@@ -228,3 +236,11 @@ def get_room_by_id(room_id:str,hostel:Literal["swami","nehru","mtb"]):
         for i,mem in enumerate(mem_array):
             room_data[i]=parse_user_from_id(db,mem)
         return room_data
+
+@router.get("/all_room_requests/{hostel_name}")
+def all_room_requests(hostel_name:str):
+    data=db.collection("requests").document(hostel_name).get()
+    if data.exists:
+        return data.to_dict()
+    else:
+        raise HTTPException(404,"no info found")
