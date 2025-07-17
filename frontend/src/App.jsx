@@ -105,7 +105,7 @@ export default function App() {
         style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed", backgroundBlendMode: "multiply" }}
       >
 
-
+      <HostelMatrix/>
       <Myroom />
 
         {/* <div className="text-center mb-6">

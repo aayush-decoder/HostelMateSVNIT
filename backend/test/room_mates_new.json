@@ -1,0 +1,697 @@
+{
+  "55": {
+    "roommates": [
+      { "name": "BHARAT AYAR", "admission_no": "U24EV051" },
+      { "name": "MANGUKIYA HETKUMAR ISHVARBHAI", "admission_no": "U24EV056" }
+    ]
+  },
+  "56": {
+    "roommates": [
+      { "name": "SOMYA NAGAR", "admission_no": "I24CY022" },
+      { "name": "SHASHI PRAKASH", "admission_no": "I24CY023" }
+    ]
+  },
+  "58": {
+    "roommates": [
+      { "name": "ABHIMANYU KUMAR", "admission_no": "U24CS053" },
+      { "name": "VAGHELA ASHISH KUMAR", "admission_no": "U24IC011" }
+    ]
+  },
+  "59": {
+    "roommates": [
+      { "name": "SUMIT RATHOR", "admission_no": "U24CS064" },
+      { "name": "UPPUNUTALA SAIDULU", "admission_no": "U24AI131" }
+    ]
+  },
+  "60": { "roommates": [{ "name": "SACHIN", "admission_no": "U24CH042" }] },
+  "61": {
+    "roommates": [
+      { "name": "NIKUNJ NANDWANI", "admission_no": "U24EE089" },
+      { "name": "MRUDUL MITTAL", "admission_no": "U24EV009" }
+    ]
+  },
+  "62": {
+    "roommates": [
+      { "name": "ADITYA MANORKAR", "admission_no": "U24ME028" },
+      { "name": "PATEL MIKI MUKESHKUMAR", "admission_no": "U24ME207" }
+    ]
+  },
+  "63": {
+    "roommates": [
+      { "name": "BANDARI SRUJAN", "admission_no": "U24AI105" },
+      { "name": "PATEL DEVKUMAR PRAKASHBHAI", "admission_no": "I24CY026" }
+    ]
+  },
+  "64": {
+    "roommates": [
+      { "name": "PARMAR BRIJESH DINESHBHAI", "admission_no": "U24EE102" },
+      { "name": "SATYA PRAKASH VERMA", "admission_no": "U24CH113" }
+    ]
+  },
+  "65": {
+    "roommates": [
+      { "name": "SINDHA DHARMENDRA", "admission_no": "U24ME184" },
+      { "name": "KSHITIJ PANDEY", "admission_no": "U24CS135" }
+    ]
+  },
+  "66": {
+    "roommates": [
+      { "name": "CHAUDHARI ANIRUDDH RAJUBHAI", "admission_no": "U24ME212" },
+      { "name": "ARJUN SINGH", "admission_no": "U24CE072" }
+    ]
+  },
+  "67": {
+    "roommates": [
+      { "name": "HARSH VARDHAN", "admission_no": "U24CE002" },
+      { "name": "SHAHID ALI", "admission_no": "U24CE082" }
+    ]
+  },
+  "68": {
+    "roommates": [{ "name": "BANOTHU NAVEEN", "admission_no": "I24PH041" }]
+  },
+  "102": {
+    "roommates": [
+      { "name": "CHERIPALLI SHREYAS", "admission_no": "U24CS146" },
+      { "name": "RAO PRINCE RAMESHKUMAR", "admission_no": "U24EP017" }
+    ]
+  },
+  "103": {
+    "roommates": [
+      { "name": "CHAUHAN RUDRA DHARMENDRASINH", "admission_no": "U24CS122" },
+      { "name": "BADRAKIYA AYUSH NILESHBHAI", "admission_no": "U24CS125" }
+    ]
+  },
+  "104": {
+    "roommates": [
+      { "name": "DASHRATH MEENA", "admission_no": "U24CE008" },
+      { "name": "MIHIR ANAND", "admission_no": "U24EC142" }
+    ]
+  },
+  "106": {
+    "roommates": [
+      { "name": "AJANI MEET GIRISHBHAI", "admission_no": "U24ME022" },
+      { "name": "TANISHK MEENA", "admission_no": "U24CH025" }
+    ]
+  },
+  "157": {
+    "roommates": [
+      { "name": "BARODIYA RAJJAK RAFIKAHEMAD", "admission_no": "U24EC099" },
+      { "name": "BHISE VEDANT MAHESHWAR", "admission_no": "U24EC102" }
+    ]
+  },
+  "158": {
+    "roommates": [
+      { "name": "DESAI KUNAL HITESHKUMAR", "admission_no": "U24EE073" },
+      { "name": "PATEL MANKUMAR GIRISHBHAI", "admission_no": "U24IC013" }
+    ]
+  },
+  "159": {
+    "roommates": [
+      { "name": "LOKESH MALI", "admission_no": "U24CE013" },
+      { "name": "KOTADIYA MIHIRBHAI KISHORBHAI", "admission_no": "U24EP010" }
+    ]
+  },
+  "160": {
+    "roommates": [
+      { "name": "GAMI SEDHABHAI RAMESHBHAI", "admission_no": "U24AI049" },
+      { "name": "CHAUDHARY ASHWINBHAI VASHRAMBHAI", "admission_no": "U24CH084" }
+    ]
+  },
+  "161": {
+    "roommates": [{ "name": "JAKKA KOMAL SAI", "admission_no": "U24AI022" }]
+  },
+  "162": {
+    "roommates": [
+      { "name": "YEGIREDDI ADITHYA", "admission_no": "U24EE071" },
+      { "name": "KRISHNA KEJRIWAL", "admission_no": "U24CS134" }
+    ]
+  },
+  "163": {
+    "roommates": [
+      { "name": "SACHIN KUMAR BHASKAR", "admission_no": "U24EE097" },
+      { "name": "KAMAL CHHAWARI", "admission_no": "I24CY013" }
+    ]
+  },
+  "164": {
+    "roommates": [
+      { "name": "PATEL RUDRA PRAKASHBHAI", "admission_no": "U24ME068" }
+    ]
+  },
+  "165": {
+    "roommates": [
+      { "name": "ANSHU YADAV", "admission_no": "U24ME254" },
+      { "name": "SONU KUMAR", "admission_no": "U24ME257" }
+    ]
+  },
+  "166": {
+    "roommates": [
+      { "name": "CHINNAPUREDDY PAVAN KUMAR REDDY", "admission_no": "U24AI033" }
+    ]
+  },
+  "167": {
+    "roommates": [{ "name": "INUMULA TEJA", "admission_no": "U24AI039" }]
+  },
+  "168": {
+    "roommates": [
+      { "name": "KANNOJIYA BIPIN NAGENDRA PRASAD", "admission_no": "U24CS136" },
+      { "name": "GUPTA AYUSH SURYABHAN", "admission_no": "U24CH072" }
+    ]
+  },
+  "169": {
+    "roommates": [
+      { "name": "KHENI DAKSH", "admission_no": "U24CS129" },
+      { "name": "CHAUDHARY SHREYANS JIVRAJBHAI", "admission_no": "U24CE115" }
+    ]
+  },
+  "170": {
+    "roommates": [
+      { "name": "MOHD AYAN TAYYAB", "admission_no": "U24CH114" },
+      {
+        "name": "RAMPURIYA MUHAMMAD RAIYAN HANIFABHAI",
+        "admission_no": "U24CE113"
+      }
+    ]
+  },
+  "201": {
+    "roommates": [
+      { "name": "KANJANI KRISH JETHANAND", "admission_no": "U24CS102" },
+      { "name": "PRASHANT KUMAR", "admission_no": "I24PH011" }
+    ]
+  },
+  "202": {
+    "roommates": [{ "name": "DIVYANSH PATEL", "admission_no": "U24ME245" }]
+  },
+  "203": {
+    "roommates": [
+      { "name": "NIKHIL PATHAK", "admission_no": "U24EC012" },
+      { "name": "GAMIT AYUSHKUMAR KALPESHBHAI", "admission_no": "U24CH117" }
+    ]
+  },
+  "204": {
+    "roommates": [
+      { "name": "THAKKAR ADITYA TEJAS", "admission_no": "U24ME090" },
+      { "name": "ABHAY PRAJAPAT", "admission_no": "U24ME118" }
+    ]
+  },
+  "258": {
+    "roommates": [
+      { "name": "BHABESH", "admission_no": "U24ME251" },
+      { "name": "NEERAJ BHATI", "admission_no": "U24EE128" }
+    ]
+  },
+  "260": {
+    "roommates": [
+      { "name": "G AJAY", "admission_no": "U24ME147" },
+      { "name": "RATHOD SRIKANTH", "admission_no": "U24EV010" }
+    ]
+  },
+  "261": {
+    "roommates": [
+      { "name": "NIKHIL DUBEY", "admission_no": "I24CY011" },
+      { "name": "ARPIT KUMAR SAINI", "admission_no": "I24CY029" }
+    ]
+  },
+  "262": {
+    "roommates": [
+      { "name": "C S PREETHAM", "admission_no": "I24AI010" },
+      { "name": "RUSHIKESH SABE", "admission_no": "I24CY031" }
+    ]
+  },
+  "263": {
+    "roommates": [
+      { "name": "ADITYA SANJAY BANKER", "admission_no": "U24ME150" },
+      { "name": "NAGESHI SAMARTH NAGNATH", "admission_no": "U24MC022" }
+    ]
+  },
+  "264": {
+    "roommates": [
+      { "name": "MOHIT VERMA", "admission_no": "U24ME149" },
+      { "name": "MALLA DEVI SREE HEMA VARA PRASAD", "admission_no": "U24ME260" }
+    ]
+  },
+  "266": {
+    "roommates": [
+      { "name": "JASH PRATIKKUMAR NAIK", "admission_no": "U24ME018" },
+      {
+        "name": "MUSAMJI MUNTAZARHUSAIN MUSTUFAALI",
+        "admission_no": "U24ME098"
+      }
+    ]
+  },
+  "267": {
+    "roommates": [
+      { "name": "RUPALA HET SURESHKUMAR", "admission_no": "U24EC130" }
+    ]
+  },
+  "268": {
+    "roommates": [
+      { "name": "PARMAR MIHIRKUMAR FULABHAI", "admission_no": "U24EE066" },
+      { "name": "ASHISH KUMAR", "admission_no": "U24CE121" }
+    ]
+  },
+  "269": {
+    "roommates": [{ "name": "ASHISH KUMAR", "admission_no": "U24IC006" }]
+  },
+  "270": {
+    "roommates": [
+      { "name": "ANKIT BHARDWAJ", "admission_no": "U24CE069" },
+      { "name": "PRATHAM SOOD", "admission_no": "U24ME258" }
+    ]
+  },
+  "301": {
+    "roommates": [
+      { "name": "TAWANDE OMKAR SATISH", "admission_no": "U24ME241" }
+    ]
+  },
+  "302": {
+    "roommates": [
+      { "name": "SONGARA NIRMAL PRAHALADBHAI", "admission_no": "U24EE069" },
+      { "name": "SUMIT KUMAR", "admission_no": "I24PH031" }
+    ]
+  },
+  "303": {
+    "roommates": [
+      { "name": "VINANTH P", "admission_no": "U24AI052" },
+      { "name": "SAHA ABHAY KRISHNA", "admission_no": "U24EC025" }
+    ]
+  },
+  "304": {
+    "roommates": [
+      { "name": "ARSH GARG", "admission_no": "U24EE059" },
+      { "name": "PATEL DARSH JAGADISH", "admission_no": "U24ME248" }
+    ]
+  },
+  "357": {
+    "roommates": [
+      { "name": "HATMODE PRATIK MUKESH", "admission_no": "U24EE095" },
+      { "name": "AKASH PANJIYAR", "admission_no": "U24EE112" }
+    ]
+  },
+  "358": {
+    "roommates": [
+      {
+        "name": "CHAUDHARI TRUPALKUMAR AVINASHBHAI",
+        "admission_no": "U24ME080"
+      },
+      { "name": "VALVI ROHANBHAI CHIMANBHAI", "admission_no": "U24EC093" }
+    ]
+  },
+  "359": {
+    "roommates": [
+      { "name": "PAVITRA SHARMA", "admission_no": "U24CH061" },
+      { "name": "KAMALIA PARTH DINESH", "admission_no": "U24CE109" }
+    ]
+  },
+  "360": {
+    "roommates": [
+      { "name": "GELIVI NAGA DATHESWARA KUMAR", "admission_no": "U24CS133" },
+      { "name": "ABHINAV SINGH", "admission_no": "U24ME228" }
+    ]
+  },
+  "361": {
+    "roommates": [
+      { "name": "PATIKE MANIDEEP RAO", "admission_no": "I24PH004" },
+      { "name": "SUTHAR HASTINKUMAR HARDIKBHAI", "admission_no": "I24MA019" }
+    ]
+  },
+  "362": {
+    "roommates": [
+      { "name": "SAPAVAT TANUSH CHOUHAN", "admission_no": "U24EV008" },
+      { "name": "GAJENDRA", "admission_no": "U24CE116" }
+    ]
+  },
+  "363": {
+    "roommates": [
+      { "name": "SANAPALA SANJAY", "admission_no": "U24AI037" },
+      { "name": "ANKUSH", "admission_no": "I24CY032" }
+    ]
+  },
+  "364": {
+    "roommates": [
+      { "name": "ROHIT BHAVYA KAMLESHKUMAR", "admission_no": "U24EV025" },
+      { "name": "HINESH KUMAR", "admission_no": "U24CE049" }
+    ]
+  },
+  "365": {
+    "roommates": [
+      { "name": "JAY KAMLESHKUMAR VANKAR", "admission_no": "U24AI042" },
+      { "name": "SHIVAM KUMAR", "admission_no": "U24CH068" }
+    ]
+  },
+  "367": {
+    "roommates": [
+      { "name": "ASHISH DOI", "admission_no": "I24MA012" },
+      { "name": "JAISWAL ABHISHEK SHIVKUMAR", "admission_no": "U24EP025" }
+    ]
+  },
+  "401": {
+    "roommates": [
+      { "name": "KEVAL MAKWANA", "admission_no": "U24AI059" },
+      { "name": "RITESH TIWARI", "admission_no": "I24MA031" }
+    ]
+  },
+  "402": {
+    "roommates": [
+      { "name": "DEEPAK SONI", "admission_no": "U24EE109" },
+      { "name": "MOHD SAWEZ", "admission_no": "U24ME249" }
+    ]
+  },
+  "403": {
+    "roommates": [{ "name": "JAY ANILKUMAR YADAV", "admission_no": "U24ME079" }]
+  },
+  "404": {
+    "roommates": [
+      { "name": "PARMAR MANAN RAVINDRABHAI", "admission_no": "U24ME021" },
+      { "name": "DIVYANSH JINGER", "admission_no": "U24EE072" }
+    ]
+  },
+  "458": {
+    "roommates": [
+      { "name": "SHAH KRUSHABH JAIMINKUMAR", "admission_no": "U24ME077" },
+      { "name": "ANIL ANAND", "admission_no": "I24PH026" }
+    ]
+  },
+  "460": {
+    "roommates": [
+      { "name": "BHATIYA KAVYA VISHNUKUMAR", "admission_no": "U24AI038" }
+    ]
+  },
+  "462": {
+    "roommates": [
+      { "name": "LUCKY TITER", "admission_no": "U24ME046" },
+      { "name": "JADAV MEET", "admission_no": "U24CS063" }
+    ]
+  },
+  "464": {
+    "roommates": [
+      { "name": "REDDY NAGENDRA RAGHU VEER", "admission_no": "U24CE111" },
+      { "name": "BANDARU JASHWAN", "admission_no": "U24EE114" }
+    ]
+  },
+  "465": {
+    "roommates": [
+      { "name": "KATPARA HARSHIL", "admission_no": "I24MA017" },
+      { "name": "BAISANE JEET ATMARAM", "admission_no": "U24EC138" }
+    ]
+  },
+  "466": {
+    "roommates": [
+      { "name": "KARANBHAI BHEDA", "admission_no": "U24AI029" },
+      { "name": "DHANGAR MANTHAN MANISHBHAI", "admission_no": "I24AI022" }
+    ]
+  },
+  "467": {
+    "roommates": [
+      { "name": "SUTARIYA TIRTH VIJAYKUMAR", "admission_no": "U24MC001" }
+    ]
+  },
+  "468": {
+    "roommates": [
+      { "name": "PATEL MEETKUMAR JITENDRABHAI", "admission_no": "U24CE005" }
+    ]
+  },
+  "469": {
+    "roommates": [
+      { "name": "VANSH MEET HIMATBHAI", "admission_no": "U24ME199" },
+      { "name": "GADDAM SURYA", "admission_no": "U24EE126" }
+    ]
+  },
+  "470": {
+    "roommates": [
+      { "name": "AGRAJ GARG", "admission_no": "U24CE046" },
+      { "name": "PRAJAPATI MEET VIPULKUMAR", "admission_no": "U24CH044" }
+    ]
+  },
+  "501": {
+    "roommates": [
+      { "name": "ROHIT", "admission_no": "U24ME201" },
+      { "name": "MISHRA ABHISHEK PAWANSUT", "admission_no": "U24EP019" }
+    ]
+  },
+  "502": {
+    "roommates": [
+      { "name": "PROMIT SINGH", "admission_no": "I24PH025" },
+      { "name": "MANISH RAJ BAIRWA", "admission_no": "U24CE037" }
+    ]
+  },
+  "503": {
+    "roommates": [
+      { "name": "AYUSH ARYAN", "admission_no": "U24ME056" },
+      { "name": "HIMANSHU MANGESH PATNI", "admission_no": "U24CH057" }
+    ]
+  },
+  "504": {
+    "roommates": [
+      { "name": "KURNALA NIKHIL", "admission_no": "U24EV026" },
+      { "name": "MOHANISH PUNJ", "admission_no": "U24EV037" }
+    ]
+  },
+  "557": {
+    "roommates": [
+      { "name": "PATEL YUG CHETANKUMAR", "admission_no": "U24EE061" },
+      { "name": "DUBEY ADARSH PAWAN", "admission_no": "I24MA018" }
+    ]
+  },
+  "558": {
+    "roommates": [
+      { "name": "MUDA SRINU", "admission_no": "U24CS124" },
+      { "name": "DASARI MANEESH KUMAR", "admission_no": "U24CS167" }
+    ]
+  },
+  "559": {
+    "roommates": [
+      { "name": "HARSHIT SINGH TOMAR", "admission_no": "U24ME209" },
+      { "name": "RONAK", "admission_no": "I24MA032" }
+    ]
+  },
+  "560": {
+    "roommates": [
+      { "name": "THAKAR VEDANT RASHMIKANT", "admission_no": "U24EE058" }
+    ]
+  },
+  "562": {
+    "roommates": [
+      { "name": "MAHENDRA KUMAR MEENA", "admission_no": "U24EE079" }
+    ]
+  },
+  "563": {
+    "roommates": [
+      { "name": "DHAVALA SATYASHRI ANIRUDH", "admission_no": "U24ME033" },
+      { "name": "TANAY KUMAR", "admission_no": "U24CS168" }
+    ]
+  },
+  "564": {
+    "roommates": [
+      { "name": "BHATT BHAVYANG KIRITKUMAR", "admission_no": "U24ME017" }
+    ]
+  },
+  "565": {
+    "roommates": [
+      { "name": "THAKER ANSHUL BHARATBHAI", "admission_no": "U24EE065" },
+      { "name": "MAYANK CHAUHAN", "admission_no": "I24MA006" }
+    ]
+  },
+  "568": {
+    "roommates": [
+      { "name": "CHIRAG SINGH", "admission_no": "U24EC032" },
+      { "name": "ROHAN GUPTA", "admission_no": "U24EC078" }
+    ]
+  },
+  "569": {
+    "roommates": [
+      { "name": "CHINMAY LATH", "admission_no": "U24ME020" },
+      { "name": "AAKASH", "admission_no": "U24EP003" }
+    ]
+  },
+  "570": {
+    "roommates": [
+      { "name": "MEHUL TAK", "admission_no": "U24EE090" },
+      { "name": "NISHANT DANGI", "admission_no": "U24CE017" }
+    ]
+  },
+  "601": {
+    "roommates": [
+      { "name": "DASARI MOKSHAJNA SRI DATTA SAI", "admission_no": "U24CE009" },
+      { "name": "DHARMANA LALEEN", "admission_no": "U24CE088" }
+    ]
+  },
+  "602": {
+    "roommates": [
+      { "name": "ADNAN FAYAZUDDIN KHAN", "admission_no": "U24EE081" },
+      { "name": "ANUJ KUMAR", "admission_no": "U24CS044" }
+    ]
+  },
+  "603": {
+    "roommates": [
+      { "name": "PATEL PRINCE RAJESHKUMAR", "admission_no": "U24EC028" },
+      { "name": "ADITYA KUMAR", "admission_no": "U24EP006" }
+    ]
+  },
+  "604": {
+    "roommates": [
+      { "name": "CHOUKIDAR AYUSH MANISH", "admission_no": "U24EC070" },
+      { "name": "RIMMALAPUDI JASWANTH VINAY", "admission_no": "U24EC117" }
+    ]
+  },
+  "658": {
+    "roommates": [
+      { "name": "GAMPALA UDAY KIRAN", "admission_no": "I24AI003" },
+      { "name": "PRIYANSHU VARUN", "admission_no": "U24ME218" }
+    ]
+  },
+  "659": {
+    "roommates": [
+      { "name": "GAJERA HET OJASBHAI", "admission_no": "U24ME058" },
+      { "name": "SACHIDANANDA SWAIN", "admission_no": "I24AI025" }
+    ]
+  },
+  "660": {
+    "roommates": [{ "name": "DEEPAK PATHAK", "admission_no": "I24PH019" }]
+  },
+  "661": {
+    "roommates": [
+      { "name": "PRIYANSH TOLAMBIYA", "admission_no": "U24AI048" },
+      { "name": "HARSH SINGH", "admission_no": "I24PH039" }
+    ]
+  },
+  "662": {
+    "roommates": [
+      { "name": "ADDEPALLI GANESH KUMAR RAJU", "admission_no": "U24EC076" },
+      { "name": "KISLAY GUPTA", "admission_no": "U24IC022" }
+    ]
+  },
+  "664": {
+    "roommates": [
+      { "name": "LOKA SAI SRIYUTH REDDY", "admission_no": "U24CE024" },
+      { "name": "YASHRAJ CHHABRA", "admission_no": "U24CE066" }
+    ]
+  },
+  "666": {
+    "roommates": [
+      { "name": "THOTA VENKATA SAI", "admission_no": "U24EC086" },
+      { "name": "NITIN KUMAWAT", "admission_no": "U24CE099" }
+    ]
+  },
+  "758": {
+    "roommates": [
+      { "name": "THAKKAR SATYAM BHARGAVKUMAR", "admission_no": "U24ME111" },
+      { "name": "BODDEPALLI ABHISHEK", "admission_no": "U24EV036" }
+    ]
+  },
+  "759": {
+    "roommates": [
+      { "name": "ADITYA KUSHWAHA", "admission_no": "U24EC116" },
+      { "name": "SOUMEN MOHANTY", "admission_no": "U24EC133" }
+    ]
+  },
+  "760": {
+    "roommates": [
+      { "name": "BODHRAJ MEENA", "admission_no": "I24CY028" },
+      { "name": "ABHISHEK KUMAR BHAGAT", "admission_no": "U24ME239" }
+    ]
+  },
+  "761": {
+    "roommates": [
+      { "name": "ABHAY KUMAR", "admission_no": "I24PH013" },
+      { "name": "MADHUR SHARMA", "admission_no": "I24PH021" }
+    ]
+  },
+  "762": {
+    "roommates": [
+      { "name": "JOGU LOKESH CHANDRA", "admission_no": "U24EC023" },
+      { "name": "M HARSHAVARDHAN REDDY", "admission_no": "U24EC047" }
+    ]
+  },
+  "764": {
+    "roommates": [
+      {
+        "name": "ANISETTI CHAKRA VEERA SATYA PRASAD",
+        "admission_no": "U24EV004"
+      },
+      { "name": "PARUCHURI VENKATA DINESH KUMAR", "admission_no": "U24EC015" }
+    ]
+  },
+  "801": {
+    "roommates": [
+      { "name": "RISHABH HANS", "admission_no": "U24ME108" },
+      { "name": "SHREYAS SINGH", "admission_no": "U24ME178" }
+    ]
+  },
+  "802": {
+    "roommates": [
+      { "name": "ANMOL BARANWAL", "admission_no": "U24EV052" },
+      { "name": "VEDANSH BHARGAVA", "admission_no": "U24EC131" }
+    ]
+  },
+  "803": {
+    "roommates": [
+      { "name": "MOTAMARRI THRIKARAN", "admission_no": "I24CY005" },
+      { "name": "YADAV MAYANKPRATAP", "admission_no": "U24CE091" }
+    ]
+  },
+  "804": {
+    "roommates": [
+      { "name": "MAISURIA YAKSH BHADRESHBHAI", "admission_no": "U24CH086" },
+      { "name": "SEJPAL MEHAL", "admission_no": "I24MA042" }
+    ]
+  },
+  "858": {
+    "roommates": [
+      { "name": "DEEN DAYAL MEENA", "admission_no": "U24ME041" },
+      { "name": "ARYAN", "admission_no": "I24CY040" }
+    ]
+  },
+  "860": {
+    "roommates": [
+      { "name": "AATIK ZAKIRHUSEN MUJAWAR", "admission_no": "U24ME070" },
+      { "name": "SOLANKI DHRUV VIJAY", "admission_no": "U24EC052" }
+    ]
+  },
+  "861": {
+    "roommates": [
+      { "name": "EKANSH RANA", "admission_no": "U24ME053" },
+      { "name": "KAMBLE VICKY SATISH", "admission_no": "I24MA022" }
+    ]
+  },
+  "862": {
+    "roommates": [
+      { "name": "KENISH TANDEL", "admission_no": "U24ME045" },
+      { "name": "KORAT MEET MAHESHBHAI", "admission_no": "U24ME061" }
+    ]
+  },
+  "863": {
+    "roommates": [
+      { "name": "BHATT KALRAV MINESHKUMAR", "admission_no": "U24ME157" },
+      { "name": "TANISH CHANDEL", "admission_no": "U24ME158" }
+    ]
+  },
+  "864": {
+    "roommates": [
+      { "name": "CHETAN KACCHWAHA", "admission_no": "U24EE094" },
+      { "name": "VEEDHI NAGA VENKATESH", "admission_no": "U24CE023" }
+    ]
+  },
+  "866": {
+    "roommates": [
+      { "name": "JANAKI PRANITH KUMAR BALAGA", "admission_no": "U24EC128" }
+    ]
+  },
+  "867": {
+    "roommates": [
+      { "name": "JADAV HARSHKUMAR PIYUSHKUMAR", "admission_no": "U24EC041" },
+      { "name": "KUNAL LUNAYACH", "admission_no": "I24CY038" }
+    ]
+  },
+  "868": {
+    "roommates": [
+      { "name": "VANSH RAWAT", "admission_no": "U24AI035" },
+      { "name": "DUDIMETLA AKHUL", "admission_no": "U24EV022" }
+    ]
+  },
+  "869": {
+    "roommates": [
+      { "name": "MAYANK NAGAURA", "admission_no": "U24CE103" },
+      { "name": "SHINDE RUSHIRAJ SHIVAJI", "admission_no": "U24MC029" }
+    ]
+  }
+}

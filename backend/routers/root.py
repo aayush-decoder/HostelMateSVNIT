@@ -28,35 +28,35 @@ def send_room_members(roomId: str):
 def send_room_status(roomId: str):
     return {"status": check_room_status(db, roomId)}
 
-@router.get("/room_status_all")
-def get_all_room_statuses():
-    room_ref = db.collection("boysHostelLookup")
-    user_ref = db.collection("users")
+# @router.get("/room_status_all")
+# def get_all_room_statuses():
+#     room_ref = db.collection("boysHostelLookup")
+#     user_ref = db.collection("users")
 
-    rooms = room_ref.stream()
+#     rooms = room_ref.stream()
 
-    room_statuses = {}  # like {"C405": 2}
-    room_users = {}     # like {"C405": {name: "deje", admissionNumber: "U24AI091"}}
+#     room_statuses = {}  # like {"C405": 2}
+#     room_users = {}     # like {"C405": {name: "deje", admissionNumber: "U24AI091"}}
 
-    for room in rooms:
-        room_id = room.id
-        data = room.to_dict()
+#     for room in rooms:
+#         room_id = room.id
+#         data = room.to_dict()
 
-        # Save room status (count = 0, 1, 2, or -1 if maintenance)
-        room_statuses[room_id] = data.get("count", 0)
+#         # Save room status (count = 0, 1, 2, or -1 if maintenance)
+#         room_statuses[room_id] = data.get("count", 0)
 
-        # Get user details (we'll just pick first member)
-        members = data.get("members", [])
-        if members:
-            user_doc = user_ref.document(members[0]).get()
-            if user_doc.exists:
-                user_data = user_doc.to_dict()
-                room_users[room_id] = {
-                    "name": user_data.get("name", ""),
-                    "admissionNumber": user_data.get("admissionNumber", "")
-                }
+#         # Get user details (we'll just pick first member)
+#         members = data.get("members", [])
+#         if members:
+#             user_doc = user_ref.document(members[0]).get()
+#             if user_doc.exists:
+#                 user_data = user_doc.to_dict()
+#                 room_users[room_id] = {
+#                     "name": user_data.get("name", ""),
+#                     "admissionNumber": user_data.get("admissionNumber", "")
+#                 }
 
-    return {
-        "statuses": room_statuses,
-        "users": room_users
-    }
+#     return {
+#         "statuses": room_statuses,
+#         "users": room_users
+#     }

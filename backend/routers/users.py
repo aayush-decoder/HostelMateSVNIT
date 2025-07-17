@@ -5,7 +5,7 @@ from typing import Optional,Literal
 import db as mydb
 from firebase_admin import firestore 
 from firebase_admin import auth as firebase_auth
-from .helper import parse_user_from_id
+from .helper import parse_user_from_id,fetch_all_users
 from auth.schemas import update_user, UserResponse
 from auth.jwt_config import create_access_token, get_current_user
 from .check_room import check_room_data, check_room_status
@@ -184,28 +184,28 @@ def update_room_details(details: update_user, current_user: dict = Depends(get_c
         return {"message": "Room is full or something unexpected occurred."}
 
 
-@router.get("/room_details/{branch_name}")
-def get_room_details(branch_name: str):
-    MAX_STUDENTS = 250
-    admissionNumberTemplate = f"u24{branch_name.lower()}"
-    users_data = []
+# @router.get("/room_details/{branch_name}")
+# def get_room_details(branch_name: str):
+#     MAX_STUDENTS = 250
+#     admissionNumberTemplate = f"u24{branch_name.lower()}"
+#     users_data = []
+#     all_users=db.collection("users")
+#     for roll_no in range(1, MAX_STUDENTS + 1):
+#         formatted_roll = f"{roll_no:03d}" 
+#         uid = admissionNumberTemplate + formatted_roll
+#         doc_ref = db.collection("users").document(uid).get()
 
-    for roll_no in range(1, MAX_STUDENTS + 1):
-        formatted_roll = f"{roll_no:03d}" 
-        uid = admissionNumberTemplate + formatted_roll
-        doc_ref = db.collection("users").document(uid).get()
+#         if doc_ref.exists:
+#             data = doc_ref.to_dict()
+#             users_data.append({
+#                 "uid": uid,
+#                 "name": data.get("name"),
+#                 "roomId": data.get("roomId"),
+#                 "hostel": data.get("hostel"),
+#                 "contactNumber": data.get("contactNumber")
+#             })
 
-        if doc_ref.exists:
-            data = doc_ref.to_dict()
-            users_data.append({
-                "uid": uid,
-                "name": data.get("name"),
-                "roomId": data.get("roomId"),
-                "hostel": data.get("hostel"),
-                "contactNumber": data.get("contactNumber")
-            })
-
-    return users_data
+#     return users_data
 
 @router.get("/room_by_id/{hostel}/{room_id}")
 def get_room_by_id(room_id:str,hostel:Literal["swami","nehru","mtb"]):
