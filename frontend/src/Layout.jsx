@@ -12,7 +12,7 @@ import OutgoinRequests from './featurePopups/OutgoinRequests';
 import { gsap } from "gsap";
 import HostelMatrix from './roomMatrix/SwamiMatrix';
 import App from './App';
-
+import Footer from './components/Footer';
 import Swal from 'sweetalert2';
 
 
@@ -113,7 +113,7 @@ export default function Layout() {
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
-      
+      <Footer/>
     </>
   );
 }
