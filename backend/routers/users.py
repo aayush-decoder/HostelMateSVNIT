@@ -143,7 +143,8 @@ async def get_incoming_requests(current_user: dict = Depends(get_current_user)):
                 "uid": uid,
                 "name": u.get("name"),  
                 "room_id": u.get("roomId"),
-                "admission_number": u.get("admissionNumber")
+                "admission_number": u.get("admissionNumber"),
+                "contactNumber": u.get("contactNumber")
             })
 
     return users_data

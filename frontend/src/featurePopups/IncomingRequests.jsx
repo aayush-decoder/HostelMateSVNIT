@@ -8,7 +8,7 @@ export default function IncomingRequests() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await fetch('https://hostelmate-nqe3.onrender.com/incoming-requests', {
+        const res = await fetch('http://localhost:8000/incoming-requests', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -19,6 +19,8 @@ export default function IncomingRequests() {
         const data = await res.json();
         console.log(data)
         setRequests(data);
+
+        console.table(data)
       } catch (error) {
         console.error(error);
       } finally {
@@ -61,8 +63,9 @@ export default function IncomingRequests() {
           className="border border-theme-tertiary p-3 rounded-md bg-theme-secondary hover:bg-theme-tertiary transition"
         >
           <p className="text-lg font-medium">{req.name}</p>
-          <p className="text-sm text-theme-ink-secondary">Admission No: {req.admission_number.toUpperCase()}</p>
-          <p className="text-sm text-theme-ink-tertiary">Room: {req.room_id}</p>
+          <p className="text-sm text-theme-ink-secondary">Room: {req.room_id}</p>
+          <p className="text-sm text-theme-ink-tertiary">Admission No: {req.admission_number.toUpperCase()}</p>
+          <p className="text-sm text-theme-ink-tertiary">Contact No: {req.contactNumber}</p>
         </div>
       ))}
     </div>
