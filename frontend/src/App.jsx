@@ -140,7 +140,7 @@ export default function App() {
           <p className="text-gray-400 text-sm">"Where Room Swaps Meet Vibes 😎"</p>
         </div> */}
 
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 mt-3">
           <button
             onClick={() => setShowModal(true)}
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-purple-600 hover:to-blue-600 text-white px-6 py-2 rounded-xl shadow-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95"

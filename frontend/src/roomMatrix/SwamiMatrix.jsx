@@ -40,6 +40,7 @@ export default function HostelMatrix() {
   const [loading, setLoading] = useState(true);
   const [branch, setBranch] = useState("AI");
   const token = localStorage.getItem("token");
+  const [instruction,Setinstruction]=useState(<div className="mx-1">check which room got how many requests<br></br><ul><li>neutral➡️ no requests</li><li>green➡️ low</li><li>yellow➡️ moderate</li> <li>red➡️ high</li></ul></div>);
   useEffect(() => {
     fetch("https://hostelmate-nqe3.onrender.com/me", {
     headers: { Authorization: `Bearer ${token}` },
@@ -286,6 +287,7 @@ export default function HostelMatrix() {
     const users = database[roomId] ? database[roomId].roommates : null; //now both room occupants
     const requested = requests.includes(roomId);
     const incomingReq = incoming.includes(roomId);
+    let instructions="";
 
     let bgClass = "bg-gray-600";
     let tooltip = "";
@@ -307,6 +309,7 @@ export default function HostelMatrix() {
 
 
     } else if (mode === MODE.STATUS) {
+      
       if (status === 2) bgClass = COLOR_MAP.status2;
       else if (status === 1) bgClass = COLOR_MAP.status1;
       else if (status === -1) bgClass = COLOR_MAP.statusNeg1;
@@ -425,7 +428,11 @@ export default function HostelMatrix() {
     <div className="bg-gray-900 p-4 rounded-xl text-white shadow-xl">
       <div className="flex gap-4 mb-4">
         <button
-          onClick={() => setMode(MODE.REQUESTS)}
+          onClick={
+            () => {
+              setMode(MODE.REQUESTS)
+              Setinstruction(<div className="mx-1">check which room got how many requests<br></br><ul><li>neutral➡️ no requests</li><li>green➡️ low</li><li>yellow➡️ moderate</li> <li>red➡️ high</li></ul></div>)
+            }}
           className={`px-4 py-2 rounded ${
             mode === MODE.REQUESTS ? "bg-blue-600" : "bg-gray-700"
           }`}
@@ -433,7 +440,12 @@ export default function HostelMatrix() {
           Requests Mode
         </button>
         <button
-          onClick={() => setMode(MODE.STATUS)}
+          onClick={() => 
+            {
+              setMode(MODE.STATUS)
+              Setinstruction(<div className="mx-1">check room status <br></br> <ul><li>neutral➡️ no occupants</li><li>yellow➡️ one</li><li>red➡️ two</li><li>white➡️ we dont have data</li></ul></div>)
+            }
+          }
           className={`px-4 py-2 rounded ${
             mode === MODE.STATUS ? "bg-green-600" : "bg-gray-700"
           }`}
@@ -442,7 +454,22 @@ export default function HostelMatrix() {
         </button>
 
         <div>
+          
+          <button
+            onClick={() => {
+              setMode(MODE.BRANCH);
+              Setinstruction(<div className="mx-1">check where are your brach mates<br></br> <ul> <li>neutarl ➡️ none </li><li>light blue ➡️one</li><li>dark blue➡️ both</li></ul></div>)
+            }}
+            className={`px-4 py-2 rounded ${
+              mode === MODE.BRANCH ? " bg-orange-400" : "bg-gray-700"
+            }`}
+          >
+            Branch wise mode
+          </button>
+
+          
           <select
+            className="mx-2 my-2 bg-gray-800 text-white border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 hover:border-cyan-400 transition-all"
             name=""
             id=""
             onChange={(e) => {
@@ -451,27 +478,18 @@ export default function HostelMatrix() {
           >
             {branch_array.map((e, idx) => {
               return (
-                <option className="text-black" key={idx} value={e}>
+                <option key={idx} value={e}>
                   {e}
                 </option>
               );
             })}
           </select>
-          <button
-            onClick={() => {
-              setMode(MODE.BRANCH);
-            }}
-            className={`px-4 py-2 rounded ${
-              mode === MODE.BRANCH ? " bg-orange-400" : "bg-gray-700"
-            }`}
-          >
-            Branch wise mode
-          </button>
         </div>
       </div>
       <select
         name=""
         id=""
+        className="bg-gray-800 text-white border border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 hover:border-cyan-400 transition-all"
         defaultValue={"swami_fan_wing"}
         onChange={(e) => {
           let value=e.target.value
@@ -480,15 +498,20 @@ export default function HostelMatrix() {
       >
         {["swami_fan_wing", "swami_square_wing","mother teresa bhavan"].map((e, idx) => {
           return (
-            <option className="text-black" key={e} value={e}>
+            <option key={e} value={e}>
               {e}
             </option>
           );
         })}
       </select>
+      <br />
+      {instruction}
+      <br></br>
+      <p>hover or touch breifly to see details</p>
       {hostel === "swami_fan_wing" ? renderFanWing() : null}
       {hostel === "swami_square_wing" ? renderSquareWing() : null}
       {hostel === "mother teresa bhavan" ? rendermtb() : null}
+      
     </div>
   );
 }

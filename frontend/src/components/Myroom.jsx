@@ -4,6 +4,8 @@ import LoginContext from "../context/logincontext";
 import LoadingSpinner from "./LoadingSpinner";
 import { gsap } from "gsap";
 import RoomChip from "./ui/RoomChip";
+import RoomSetupModal from "../featurePopups/UpdateDetailsPopup";
+
 
 export default function Myroom() {
   const [userData, setUserData] = useState(null);
@@ -11,6 +13,7 @@ export default function Myroom() {
   const login_info = useContext(LoginContext);
   const token = localStorage.getItem("token");
   const boxRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (login_info.login === true && token) {
@@ -50,6 +53,11 @@ export default function Myroom() {
   }
 
   return (
+
+    <>
+
+    <RoomSetupModal isOpen={showModal} onClose={() => setShowModal(false)} />
+
     <div
       ref={boxRef}
       className="max-w-3xl mx-auto mt-6 bg-gray-900 text-white shadow-2xl rounded-2xl p-6 border border-gray-800"
@@ -69,9 +77,9 @@ export default function Myroom() {
             {userData.contactNumber ? (
               <span className="text-white">{userData.contactNumber}</span>
             ) : (
-              <a className="text-yellow-400 underline cursor-pointer">
+              <span className="text-yellow-400 underline cursor-pointer" onClick={() => setShowModal(true)}>
                 Add contact so people can reach out
-              </a>
+              </span>
             )}
           </p>
         </div>
@@ -139,5 +147,7 @@ export default function Myroom() {
         </div>
       </div>
     </div>
+
+    </>
   );
 }

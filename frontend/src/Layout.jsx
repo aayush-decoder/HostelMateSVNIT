@@ -12,8 +12,9 @@ import OutgoinRequests from './featurePopups/OutgoinRequests';
 import { gsap } from "gsap";
 import HostelMatrix from './roomMatrix/SwamiMatrix';
 import App from './App';
-
+import Footer from './components/Footer';
 import Swal from 'sweetalert2';
+import Visualizer from './featurePopups/Visualizer';
 
 
 export default function Layout() {
@@ -110,10 +111,11 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/room-matrix" element={<HostelMatrix />} />
+          <Route path="/visualize" element={<Visualizer />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
-      
+      <Footer/>
     </>
   );
 }
