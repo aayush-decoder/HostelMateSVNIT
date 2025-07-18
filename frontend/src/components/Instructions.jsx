@@ -27,7 +27,7 @@ export default function EndSection() {
         <li>
           📊 For Graph Visualizations:{" "}
           <a
-            href="/visualization"
+            href="/visualize"
             className="text-blue-500 underline hover:text-blue-700"
           >
             Explore Charts
