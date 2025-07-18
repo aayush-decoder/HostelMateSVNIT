@@ -100,9 +100,9 @@ export default function Navbar({ user, handleLogin, handleLogout }) {
       {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="md:hidden mt-4 px-4 space-y-3">
-          <a href="/visualize" className="hover:text-blue-400 transition">Visualize</a>
-          <a href="mailto:aayushp336@gmail.com" className="hover:text-blue-400 transition">Contribute data</a>
-          <a href="/room-matrix" className="hover:text-blue-400 transition mr-3">Room Matrix</a>
+          <a href="/visualize" className="hover:text-blue-400 transition block">Visualize</a>
+          <a href="mailto:aayushp336@gmail.com" className="hover:text-blue-400 transition block">Contribute data</a>
+          <a href="/room-matrix" className="hover:text-blue-400 transition mr-3 block">Room Matrix</a>
 
           {user ? (
             <div className="mt-2 border-t border-gray-700 pt-3">
