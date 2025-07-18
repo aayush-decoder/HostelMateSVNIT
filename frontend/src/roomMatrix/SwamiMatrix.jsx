@@ -42,7 +42,7 @@ export default function HostelMatrix() {
   const token = localStorage.getItem("token");
   const [instruction,Setinstruction]=useState(<div className="mx-1">check which room got how many requests<br></br><ul><li>neutral➡️ no requests</li><li>green➡️ low</li><li>yellow➡️ moderate</li> <li>red➡️ high</li></ul></div>);
   useEffect(() => {
-    fetch("https://hostelmate-nqe3.onrender.com/me", {
+    fetch("http://localhost:8000/me", {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then(res => res.json())
@@ -56,7 +56,7 @@ export default function HostelMatrix() {
     });
 
     // fetch room  requests
-    fetch(`https://hostelmate-nqe3.onrender.com/all_room_requests/${hostelforquery}`, {
+    fetch(`http://localhost:8000/all_room_requests/${hostelforquery}`, {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then(res => res.json())

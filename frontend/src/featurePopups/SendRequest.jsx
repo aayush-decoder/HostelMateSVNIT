@@ -23,7 +23,7 @@ export default function RequestExchange() {
     console.log(uid);
     
     if (uid) {
-      fetch(`https://hostelmate-nqe3.onrender.com/users/${uid}`)
+      fetch(`http://localhost:8000/users/${uid}`)
         .then(res => res.json())
         .then(data => {
           
@@ -74,7 +74,7 @@ export default function RequestExchange() {
 
     setLoading(true);
     try {
-      const statusRes = await fetch(`https://hostelmate-nqe3.onrender.com/check_status/${value}`);
+      const statusRes = await fetch(`http://localhost:8000/check_status/${value}`);
       if (!statusRes.ok) throw new Error("Failed to check room status");
       const { status } = await statusRes.json();
 
@@ -83,7 +83,7 @@ export default function RequestExchange() {
         return;
       }
 
-      const membersRes = await fetch(`https://hostelmate-nqe3.onrender.com/room_members/${value}`);
+      const membersRes = await fetch(`http://localhost:8000/room_members/${value}`);
       if (!membersRes.ok) throw new Error("Room not found or invalid");
       const { members: uids } = await membersRes.json();
 
@@ -95,7 +95,7 @@ export default function RequestExchange() {
       setMembers(uids);
 
       const userFetches = uids.map((uid) =>
-        fetch(`https://hostelmate-nqe3.onrender.com/users/${uid}`, {
+        fetch(`http://localhost:8000/users/${uid}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => res.ok ? res.json() : null)
       );
@@ -143,7 +143,7 @@ export default function RequestExchange() {
 
     try {
       for (const uid of selected) {
-        const res = await fetch(`https://hostelmate-nqe3.onrender.com/request_exchange/${uid}`, {
+        const res = await fetch(`http://localhost:8000/request_exchange/${uid}`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,

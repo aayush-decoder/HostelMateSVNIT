@@ -14,6 +14,7 @@ import HostelMatrix from './roomMatrix/SwamiMatrix';
 import App from './App';
 import Footer from './components/Footer';
 import Swal from 'sweetalert2';
+import Visualizer from './featurePopups/Visualizer';
 
 
 export default function Layout() {
@@ -30,7 +31,7 @@ export default function Layout() {
     const name = localStorage.getItem("name");
 
     if (token && email) {
-      fetch("https://hostelmate-nqe3.onrender.com/me", {
+      fetch("http://localhost:8000/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export default function Layout() {
       const firebaseUser = result.user;
       const idToken = await firebaseUser.getIdToken();
 
-      const res = await fetch("https://hostelmate-nqe3.onrender.com/login", {
+      const res = await fetch("http://localhost:8000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken }),
@@ -110,6 +111,7 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/room-matrix" element={<HostelMatrix />} />
+          <Route path="/visualize" element={<Visualizer />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>

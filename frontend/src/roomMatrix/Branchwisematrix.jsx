@@ -12,7 +12,7 @@ export default function BranchRoomMatrix({ selectedBranch="AI" }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch(`https://hostelmate-nqe3.onrender.com/room_details/${selectedBranch}`, {
+    fetch(`http://localhost:8000/room_details/${selectedBranch}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

@@ -8,7 +8,7 @@ export default function IncomingRequests() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await fetch('https://hostelmate-nqe3.onrender.com/incoming-requests', {
+        const res = await fetch('http://localhost:8000/incoming-requests', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

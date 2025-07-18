@@ -18,7 +18,7 @@ function OutgoinRequests() {
 
     const fetchRequests = async () => {
       try {
-        const res = await fetch("https://hostelmate-nqe3.onrender.com/me", {
+        const res = await fetch("http://localhost:8000/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -35,7 +35,7 @@ function OutgoinRequests() {
     const fetchUsers = async (rooms) => {
       rooms.forEach(async (e) => {
         try {
-          const res = await fetch(`https://hostelmate-nqe3.onrender.com/users/${e.uid}`, {
+          const res = await fetch(`http://localhost:8000/users/${e.uid}`, {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ function OutgoinRequests() {
         ease: "power2.in",
         onComplete: async () => {
           try {
-            const res = await fetch(`https://hostelmate-nqe3.onrender.com/delete_outgoing_requests/${uid}`, {
+            const res = await fetch(`http://localhost:8000/delete_outgoing_requests/${uid}`, {
               method: "DELETE",
               headers: {
                 Authorization: `Bearer ${token}`,

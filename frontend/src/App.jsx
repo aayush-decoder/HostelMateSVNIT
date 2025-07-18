@@ -36,7 +36,7 @@ export default function App() {
     const name = localStorage.getItem("name");
 
     if (token && email) {
-      fetch("https://hostelmate-nqe3.onrender.com/me", {
+      fetch("http://localhost:8000/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function App() {
       const firebaseUser = result.user;
       const idToken = await firebaseUser.getIdToken();
 
-      const res = await fetch("https://hostelmate-nqe3.onrender.com/login", {
+      const res = await fetch("http://localhost:8000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken }),
