@@ -5,6 +5,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { gsap } from "gsap";
 import RoomChip from "./ui/RoomChip";
 import RoomSetupModal from "../featurePopups/UpdateDetailsPopup";
+import { ArrowDown } from "lucide-react";
 
 
 export default function Myroom() {
@@ -146,6 +147,21 @@ export default function Myroom() {
           </p>
         </div>
       </div>
+
+      <div className="flex lg:flex-row md:flex-row flex-col justify-center mt-4 gap-4">
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-purple-600 hover:to-blue-600 text-white px-6 py-2 rounded-xl shadow-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
+          >
+            🚀 Setup Your Data
+          </button>
+
+          <button
+            className="relative inline-block px-6 py-2 rounded-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl border border-transparent bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text hover:text-white hover:bg-clip-border hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600"
+          >
+            <a href="#instructions">See all features of HostelMate ⬇️</a>
+          </button>
+        </div>
     </div>
 
     </>

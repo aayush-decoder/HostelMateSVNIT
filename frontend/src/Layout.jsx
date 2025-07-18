@@ -15,6 +15,7 @@ import App from './App';
 import Footer from './components/Footer';
 import Swal from 'sweetalert2';
 import Visualizer from './featurePopups/Visualizer';
+import EndSection from './components/Instructions';
 
 
 export default function Layout() {
@@ -105,7 +106,13 @@ export default function Layout() {
 
   return (
     <>
-      <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
+      <div
+        ref={pageRef}
+        className="px-4 min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed" }}
+      >
+
+        <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
 
       <Router>
         <Routes>
@@ -115,7 +122,10 @@ export default function Layout() {
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
+      <EndSection />
       <Footer/>
+
+    </div>
     </>
   );
 }

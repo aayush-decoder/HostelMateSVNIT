@@ -2,5 +2,7 @@
 test.py
 firebase_credentials.json
 firebase_credentials_old.json
-.pyc
+*.pyc
 __pycache__/
+routers/__pycache__/
+

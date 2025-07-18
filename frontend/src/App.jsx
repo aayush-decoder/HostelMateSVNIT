@@ -127,8 +127,6 @@ export default function App() {
       {/* dark mode: bg-gray-950 text-white */}
       <div
         ref={pageRef}
-        className="px-4 py-8 min-h-screen bg-cover bg-center"
-        style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed" }}
       >
 
       <Myroom />
@@ -165,7 +163,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="text-center mt-10 mx-auto space-y-3 backdrop-blur-[4px] bg-[#ffffff64] rounded-xl">
+        <div className="text-center mt-10 mx-auto space-y-3 backdrop-blur-[4px] lg:w-1/2 bg-[#ffffff64] rounded-xl">
           <h2 className="text-xl font-bold text-green-600 text-shadow-gray-800">Roomie Login Info</h2>
 
           {user ? (
