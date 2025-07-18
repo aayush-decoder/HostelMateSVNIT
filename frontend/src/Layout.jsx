@@ -79,7 +79,7 @@ export default function Layout() {
       console.error(err);
       Swal.fire({
                 icon: 'error',
-                title: 'Oops! That login attempt didn’t vibe 💥',
+                title: 'Oops! That login attempt didn\'t vibe 💥',
                 text: 'Make sure you used Institute email id to Log in ✨',
                 confirmButtonText: 'Let me try again 🔁',
                 customClass: {
@@ -108,13 +108,14 @@ export default function Layout() {
     <>
       <div
         ref={pageRef}
-        className="px-4 min-h-screen bg-cover bg-center"
+        className="min-h-screen bg-cover bg-center"
         style={{ backgroundImage: "url('/hostel-bg.jpeg')", backgroundSize: "cover", backgroundClip: "fixed", backgroundAttachment: "fixed" }}
       >
 
         <Navbar user={user} handleLogin={handleLogin} handleLogout={handleLogout} />
 
-      <Router>
+      <div className="px-3">
+        <Router>
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/room-matrix" element={<HostelMatrix />} />
@@ -123,6 +124,7 @@ export default function Layout() {
         </Routes>
       </Router>
       <EndSection />
+      </div>
       <Footer/>
 
     </div>
