@@ -147,7 +147,7 @@ export default function App() {
           </button>
         </div>
 
-        <RoomSetupModal isOpen={showModal} onClose={() => setShowModal(false)} />
+        {/* <RoomSetupModal isOpen={showModal} onClose={() => setShowModal(false)} /> */}
 
         {/* 🔥 Responsive layout */}
         <div className="flex flex-col lg:flex-row lg:items-start gap-6 w-full px-2">

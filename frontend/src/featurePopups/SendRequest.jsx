@@ -66,7 +66,7 @@ export default function RequestExchange() {
     console.log(isMTBian, currentUser);
     
 
-    if (!value || !/^[ABCM]\d{3}$/i.test(value)) {
+    if (!value || !/^(?:\d{2,3}|[ABCM][\w\d]*|[a-zA-Z]{3})$/i.test(value)) {
       // setWarning("Please enter a valid room ID like 'A302'.");
       setWarning("For MTB, please add \'M\' prefix before room number");
       return;
