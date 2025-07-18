@@ -18,33 +18,47 @@ export default function RequestExchange() {
 
 
   useEffect(() => {
-  
-    fetch(`https://hostelmate-nqe3.onrender.com/users/${currentUser}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.hostel === 'swami') {
-          setIsMTBian(false);
-        } else {
-          setIsMTBian(true);
-        }
-      })
-      .catch(err => console.error('Error fetching user:', err));
-  }, []);
+  const interval = setInterval(() => {
+    const uid = localStorage.getItem('email').split('@')[0];
+    console.log(uid);
+    
+    if (uid) {
+      fetch(`http://localhost:8000/users/${uid}`)
+        .then(res => res.json())
+        .then(data => {
+          
+            console.table(data)
+          if (data.hostel === 'swami') {
+            setIsMTBian(false);
+          } else {
+            setIsMTBian(true);
+          }
+        })
+        .catch(err => console.error('Error fetching user:', err));
+      clearInterval(interval); // stop polling once fetched
+    }
+  }, 500);
+
+  return () => clearInterval(interval);
+}, []);
   
 
   const handleRoomChange = async (e) => {
+    
+
+      console.log(isMTBian);
     const value = e.target.value.toUpperCase();
+    const currentUser = localStorage.getItem('email').split('@')[0];
     setRoomId(value);
     setMembers([]);
     setSelected([]);
     setUserInfoMap({});
-    setWarning('For MTB, please add \'M\' prefix before room number');
+    setWarning('');
 
-    if (currentUser != "u24ai091" || currentUser != "i24ai029") {
+    if (currentUser != "u24ai091" && currentUser != "i24ai029") {
       if ((isMTBian == false || currentUser == null )) {
         if (value[0] == 'M' && value.length == 4) {
           alert("You can't see MTB details untill you are a girl 💅. If you are a girl, please log in to see your room mates. 😊");
-          console.loh(6)
           return;
         }
       }
@@ -53,13 +67,14 @@ export default function RequestExchange() {
     
 
     if (!value || !/^[ABCM]\d{3}$/i.test(value)) {
-      setWarning("Please enter a valid room ID like 'A302'.");
+      // setWarning("Please enter a valid room ID like 'A302'.");
+      setWarning("For MTB, please add \'M\' prefix before room number");
       return;
     }
 
     setLoading(true);
     try {
-      const statusRes = await fetch(`https://hostelmate-nqe3.onrender.com/check_status/${value}`);
+      const statusRes = await fetch(`http://localhost:8000/check_status/${value}`);
       if (!statusRes.ok) throw new Error("Failed to check room status");
       const { status } = await statusRes.json();
 
@@ -68,7 +83,7 @@ export default function RequestExchange() {
         return;
       }
 
-      const membersRes = await fetch(`https://hostelmate-nqe3.onrender.com/room_members/${value}`);
+      const membersRes = await fetch(`http://localhost:8000/room_members/${value}`);
       if (!membersRes.ok) throw new Error("Room not found or invalid");
       const { members: uids } = await membersRes.json();
 
@@ -80,7 +95,7 @@ export default function RequestExchange() {
       setMembers(uids);
 
       const userFetches = uids.map((uid) =>
-        fetch(`https://hostelmate-nqe3.onrender.com/users/${uid}`, {
+        fetch(`http://localhost:8000/users/${uid}`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => res.ok ? res.json() : null)
       );
@@ -128,7 +143,7 @@ export default function RequestExchange() {
 
     try {
       for (const uid of selected) {
-        const res = await fetch(`https://hostelmate-nqe3.onrender.com/request_exchange/${uid}`, {
+        const res = await fetch(`http://localhost:8000/request_exchange/${uid}`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
