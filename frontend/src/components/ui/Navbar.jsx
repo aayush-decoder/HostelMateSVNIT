@@ -7,7 +7,7 @@ export default function Navbar({ user, handleLogin, handleLogout }) {
   const handleLoginWarning = () => {
     Swal.fire({
       title: 'Welcome to HostelMate Buddy!',
-      text: 'To use Hostel Mate - SVNIT, you need to log in with your SVNIT email (like u24xxxxx@svnit.ac.in).',
+      text: 'To use Hostel Mate - SVNIT, you need to log in with your SVNIT email (like u24xxxxx@svnit.ac.in). [If first login fails, pls wait 2-3 as server takes time to cold start]',
       imageUrl: 'cheersMeme.png',
       imageWidth: 240,
       imageHeight: 180,

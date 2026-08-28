@@ -3,3 +3,4 @@ test.py
 firebase_credentials.json
 node_modules
 .pyc
+__pycache__/
